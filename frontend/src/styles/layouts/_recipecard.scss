@@ -1,0 +1,89 @@
+.recipe-card {
+  border-radius: 20px;
+  // width: 70%;
+  max-width: 600px;
+  margin: 10px;
+  padding: 5px;
+  background: rgba(245, 245, 245, 0.315);
+  box-shadow: 13px 11px 18px 3px rgb(37 21 11);
+
+  @media screen and (max-width: 500px) {
+    max-width: 95%;
+  }
+  h3 {
+    padding: 10px 10px 5px 10px;
+    font-size: 1.2rem;
+    font-family: $font2;
+    align-items: center;
+    
+    @media screen and (max-width: 1300px) {
+      font-size: 1.1rem;
+    }
+    
+    @media screen and (max-width: 1000px) {
+      font-size: 1rem;
+    }
+    
+    
+  }
+
+
+  h4 {
+    padding: 5px;
+    font-size:1rem;
+    font-family: $font2;
+    text-align: left;
+  }
+
+  p {
+    padding: 0 3px 0 3px;
+    font-size: 1rem;
+    font-family: $font2;
+
+    @media screen and (max-width: 1300px) {
+      font-size: 1.1rem;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 1rem;
+    }
+
+  }
+
+  h5 {
+    padding: 0 3px 0 10px;
+    font-size: 1rem;
+    font-family: $font2;
+    text-align: left;
+    color: $code;
+
+    @media screen and (max-width: 1300px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  h6 {
+    padding: 0 3px 0 10px;
+    font-size: 1rem;
+    font-family: $font2;
+    text-align: left;
+    color: $title;
+
+    @media screen and (max-width: 1300px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  
+//   .img {
+//     width: 100%;
+//     height: 220px;
+//     background: whitesmoke;
+//     font-family: $font3;
+//     overflow: scroll;
+//     .image {
+//       background: url(../../assets/img/r1index.jpg);
+//       height: 100%;
+//     }
+// }
+   
+}
