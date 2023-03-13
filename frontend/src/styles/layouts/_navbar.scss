@@ -195,28 +195,28 @@ nav {
           font-size: 1.4rem;
         }
 
-        &:hover span{
-          display: block;
-          position: absolute;   /* positionnement hors flux */
-          top: 20%;
-          padding: 0 10px;     /* un peu d'espace latéral */
-          color: whitesmoke;
-          background: $green;
-          transition: all .5s;  /* la transition à appliquer */
-          border-radius: 20px;
-          font-size: 1.8rem;
-          font-family: $font2;
+        // &:hover span{
+        //   display: block;
+        //   position: absolute;   /* positionnement hors flux */
+        //   top: 20%;
+        //   padding: 0 10px;     /* un peu d'espace latéral */
+        //   color: whitesmoke;
+        //   background: $green;
+        //   transition: all .5s;  /* la transition à appliquer */
+        //   border-radius: 20px;
+        //   font-size: 1.8rem;
+        //   font-family: $font2;
 
-          @media screen and (max-width: 1050px) {
-            font-size: 1.4rem;
-            top: 40%;
-            left: 40%;
-          }
-        }
+        //   @media screen and (max-width: 1050px) {
+        //     font-size: 1.4rem;
+        //     top: 40%;
+        //     left: 40%;
+        //   }
+        // }
        
-        span {
-          display: none;
-        }
+        // span {
+        //   display: none;
+        // }
   
         button {
           grid-area: bt;

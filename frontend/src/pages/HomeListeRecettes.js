@@ -1,13 +1,15 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 import RecipeCard from "../components/RecipeCard";
+import SignUp from "../components/SignUp";
 
 const HomeListeRecettes = () => {
   return (
     <div className="homelisterecettes">
       <div className="nav-container">
         <Navbar />
+        <SignUp />
       </div>
       <div className="homeliste-content">
         <div className="homeliste-text">

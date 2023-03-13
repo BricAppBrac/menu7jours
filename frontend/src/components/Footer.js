@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <footer>
-      <div class="footer-container1">
-        <div class="liens-footer">
+      <div className="footer-container1">
+        <div className="liens-footer">
           <ul>
             <li>
               <NavLink
@@ -25,7 +25,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div class="mentions-footer">
+        <div className="mentions-footer">
           <ul>
             <li>
               <NavLink

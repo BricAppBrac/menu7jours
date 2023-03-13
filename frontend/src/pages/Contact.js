@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div className="contact-container">
       <Navbar />
-      <div class="contact-footer">
+      <div className="contact-footer">
         <button>Inscription gratuite: mail à bricappbrac@gmail.com</button>
       </div>
       <Footer />

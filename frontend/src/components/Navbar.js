@@ -1,11 +1,20 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { setSignUp, setCloseUp } from "../feature/signUp.slice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
+  const handleSignUp = async () => {
+    dispatch(setSignUp(true));
+    dispatch(setCloseUp(false));
+  };
+
   return (
     <nav>
-      <div class="nav-container">
-        <div class="logo">
+      <div className="nav-container">
+        <div className="logo">
           <div className="imglogo"></div>
 
           <ul>
@@ -27,12 +36,12 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="nav-buttons">
-            <button>Inscription gratuite</button>
-            <button>Espace perso</button>
-            <button>
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <button onClick={() => handleSignUp()}>Inscription gratuite</button>
+            <button onClick={() => console.log("signIn")}>Espace perso</button>
+            <button onClick={() => console.log("fonction logout")}>
+              <i className="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
-            <span>en préparation</span>
+            {/* <span>en préparation</span> */}
           </div>
           <h3>Une application BricAppBrac qui simplifie la vie</h3>
         </div>

@@ -50,7 +50,7 @@ footer {
     .copyright {
       display: flex;
       font-family: $font2;
-      align-items:end;
+      align-items:flex-end;
       @media screen and (max-width: 1220px) {
         font-size: 0.9rem;
       }
