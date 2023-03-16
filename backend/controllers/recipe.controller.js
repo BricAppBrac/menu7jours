@@ -14,8 +14,7 @@ module.exports.setRecipe = async (req, res) => {
 
   const recipe = await RecipeModel.create({
     title: req.body.title,
-    // author: req.body.author,
-    author: "Melissande",
+    author: req.body.author,
   });
   res.status(200).json(recipe);
 };

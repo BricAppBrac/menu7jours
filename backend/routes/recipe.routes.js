@@ -21,9 +21,10 @@ const {
 const router = express.Router();
 
 // routes qui demandent l'authentification
-router.get("/", auth, getRecipes);
-// router.get("/", getRecipes);
-router.post("/", auth, setRecipe);
+// router.get("/", auth, getRecipes);
+router.get("/", getRecipes);
+// router.post("/", auth, setRecipe);
+router.post("/", setRecipe);
 router.put("/:id", auth, editRecipe);
 router.delete("/:id", auth, deleteRecipe);
 router.patch("/ingredient-recipe/:id", auth, ingredientRecipe);

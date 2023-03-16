@@ -1,20 +1,30 @@
 .recipe-card {
   border-radius: 20px;
   // width: 70%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 10px;
-  padding: 5px;
-  background: rgba(245, 245, 245, 0.315);
+  padding: 10px;
+ 
+ 
   box-shadow: 13px 11px 18px 3px rgb(37 21 11);
+  background: url(../../assets/img/champetre.jpg) center/cover;
 
   @media screen and (max-width: 500px) {
     max-width: 95%;
   }
+
+  .recipe-card-content {
+    
+    background: $parchemin2;
+    border-radius: 20px;
+    padding: 3px;
   h3 {
-    padding: 10px 10px 5px 10px;
+    padding: 3px 10px 5px 10px;
     font-size: 1.2rem;
     font-family: $font2;
     align-items: center;
+    background: whitesmoke;
+    border-radius: 20px;
     
     @media screen and (max-width: 1300px) {
       font-size: 1.1rem;
@@ -85,5 +95,5 @@
 //       height: 100%;
 //     }
 // }
-   
+}
 }
