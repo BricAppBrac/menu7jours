@@ -39,9 +39,9 @@ const IngredientCard = (props) => {
             }}
           >
             <option value="">Catégorie</option>
-            <option value="frais">Frais</option>
-            <option value="épicerie">Epicerie</option>
-            <option value="fruitslégumes">Fruits/Légumes</option>
+            <option value="Frais">Frais</option>
+            <option value="Epicerie">Epicerie</option>
+            <option value="Fruits/Légumes">Fruits/Légumes</option>
           </select>
         </div>
       </div>

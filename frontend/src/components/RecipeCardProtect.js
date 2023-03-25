@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setChecked } from "../feature/checked.slice";
+import DeleteRecipe from "./DeleteRecipe";
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCardProtect = ({ recipe }) => {
   const dispatch = useDispatch();
-  // const [message, setMessage] = useState("");
 
   const handleDetails = () => {
     console.log("handleDetails");
-    console.log(recipe.title);
+    console.log(recipe);
     dispatch(setChecked(recipe));
   };
 
@@ -33,14 +33,11 @@ const RecipeCard = ({ recipe }) => {
               <i className="fa-solid fa-magnifying-glass"></i>
             </NavLink>
           </div>
-
-          {/* <div className="box-message">
-            <p>{message}</p>
-          </div> */}
+          <DeleteRecipe recipeId={recipe._id} delOrigin={"liste-0"} />
         </div>
       </div>
     </div>
   );
 };
 
-export default RecipeCard;
+export default RecipeCardProtect;

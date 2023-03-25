@@ -19,6 +19,24 @@ module.exports.setRecipe = async (req, res) => {
   res.status(200).json(recipe);
 };
 
+// fonction pour créer une recette (titre, auteur, saisons, ingrédients, quantités, catégories, steps)
+module.exports.setCompleteRecipe = async (req, res) => {
+  if (!req.body.title) {
+    res.status(400).json({ message: "Merci d'ajouter un titre" });
+  }
+
+  const recipe = await RecipeModel.create({
+    title: req.body.title,
+    author: req.body.author,
+    seasons: req.body.seasons,
+    ingredients: req.body.ingredients,
+    quantities: req.body.quantities,
+    categories: req.body.categories,
+    steps: req.body.steps,
+  });
+  res.status(200).json(recipe);
+};
+
 // fonction pour modifier une recette
 module.exports.editRecipe = async (req, res) => {
   const recipe = await RecipeModel.findById(req.params.id);

@@ -1,12 +1,16 @@
 @import "./settings";
 @import "./layouts/navbar";
+@import "./layouts/sortnavbar";
 @import "./layouts/signinup";
 @import "./layouts/homelisterecettes";
 @import "./layouts/homemenu";
 @import "./layouts/recipecard";
 @import "./layouts/menucard";
 @import "./layouts/pagenewrecipe";
+@import "./layouts/pagedetailsrecipe";
 @import "./layouts/recipenew.scss";
+@import "./layouts/recipedetails.scss";
+@import "./layouts/liste";
 @import "./layouts/footer";
 @import "./layouts/contact";
 @import "./layouts/mentions";

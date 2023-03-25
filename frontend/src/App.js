@@ -3,14 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeMenu from "./pages/HomeMenu";
 import HomeListeRecettes from "./pages/HomeListeRecettes";
 import PageNewRecipe from "./pages/PageNewRecipe";
+import HomeListeRecettesSecurisee from "./pages/HomeListeRecettesSecurisee";
+import PageDetailsRecipe from "./pages/PageDetailsRecipe";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/*" element={<HomeListeRecettes />} />
+        <Route
+          path="/PrivateRoute/HomeListeRecettesProtect"
+          element={<HomeListeRecettesSecurisee />}
+        />
         <Route path="/homemenu" element={<HomeMenu />} />
         <Route path="/PrivateRoute/pagenewrecipe" element={<PageNewRecipe />} />
+        <Route path="/pagedetailsrecipe" element={<PageDetailsRecipe />} />
       </Routes>
     </BrowserRouter>
   );

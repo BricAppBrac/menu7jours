@@ -18,10 +18,10 @@ const RecipeNew = () => {
 
   const [newTitle, setNewTitle] = useState("");
   const [newAuthor, setNewAuthor] = useState("Melissande");
-  const [newIngredients, setNewIngredients] = useState([]);
-  const [newQuantities, setNewQuantities] = useState([]);
-  const [newCategories, setNewCategories] = useState([]);
-  const [newSteps, setNewSteps] = useState([]);
+  // const [newIngredients, setNewIngredients] = useState([]);
+  // const [newQuantities, setNewQuantities] = useState([]);
+  // const [newCategories, setNewCategories] = useState([]);
+  // const [newSteps, setNewSteps] = useState([]);
   const [newSeasons, setNewSeasons] = useState([]);
   let arrayNew = [];
   let arrayW = [];
@@ -34,16 +34,7 @@ const RecipeNew = () => {
 
   //////////////////////////////////////////////////////////////////////////////////
   // Gestion des inputs
-  /////////////////////////////////////////////////////////////////////////////////
-  // Stockage des saisons
-  ///////////////////////
-  // const handleSeasons = async (e) => {
-  //   await arrayW.push(e.target.name);
-  //   arrayNew = [...newSeasons, ...arrayW];
-  //   console.log("Seasons array");
-  //   console.log(arrayNew);
-  //   setNewSeasons(arrayNew);
-  // };
+  ////////////////////////////////////////////////////
   ////////////////////////////
   // Stockage des saisons
   ///////////////////////
@@ -127,20 +118,6 @@ const RecipeNew = () => {
     console.log(arrayCategories);
     console.log(arraySteps);
 
-    // Récupération des données stockées dans les tableaux intermédiaires
-    // NE FONCTIONNE PAS: TABLEAUX VIDES
-    setNewIngredients(arrayIngredients);
-    setNewQuantities(arrayQuantities);
-    setNewCategories(arrayCategories);
-    setNewSteps(arraySteps);
-
-    console.log("APRES les setNew...");
-    console.log("new Ing / Qtt / Cat / Stp");
-    console.log(newIngredients);
-    console.log(newQuantities);
-    console.log(newCategories);
-    console.log(newSteps);
-
     // Création d'une nouvelle recette dans le store
     console.log("Création d'une nouvelle recette dans le store");
 
@@ -152,10 +129,6 @@ const RecipeNew = () => {
       quantities: arrayQuantities,
       categories: arrayCategories,
       steps: arraySteps,
-      // ingredients: newIngredients,
-      // quantities: newQuantities,
-      // categories: newCategories,
-      // steps: newSteps,
       _id: Date.now(),
     };
 
@@ -166,18 +139,18 @@ const RecipeNew = () => {
     console.log("affichage AVANT BDD :");
     console.log(data);
 
-    // Création d'une recette : titre et auteur
+    // Création d'une recette :
 
-    axios.post("http://localhost:5000/recipe/", data);
+    axios.post("http://localhost:5000/recipe/complete", data);
 
     // Réinitialiser le State de newRecipe
     setNewTitle("");
     setNewAuthor("Melissande");
     setNewSeasons([]);
-    setNewIngredients([]);
-    setNewQuantities([]);
-    setNewCategories([]);
-    setNewSteps([]);
+    // setNewIngredients([]);
+    // setNewQuantities([]);
+    // setNewCategories([]);
+    // setNewSteps([]);
     setMessageNew(
       "Création effectuée, vous pouvez saisir une nouvelle recette"
     );

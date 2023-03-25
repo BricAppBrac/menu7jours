@@ -1,12 +1,12 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import ListeRecettes from "../components/ListeRecettes";
+import ListeRecettesProtect from "../components/ListeRecettesProtect";
 import SignUp from "../components/SignUp";
-import SortNavbar from "../components/SortNavbar";
-import { NavLink } from "react-router-dom";
 
-const HomeListeRecettes = () => {
+import SortNavbarProtect from "../components/SortNavbarProtect";
+
+const HomeListeRecettesSecurisee = () => {
   return (
     <div className="homelisterecettes">
       <div className="nav-container">
@@ -17,16 +17,10 @@ const HomeListeRecettes = () => {
         <div className="homeliste-text">
           <h1>Liste des Recettes</h1>
           <h2>pour la constitution des Menus</h2>
-          {/* A SUPPRIMER */}
-          <h2>
-            <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
-              Provisoire
-            </NavLink>
-          </h2>
-          {/* ////////////////// */}
-          <SortNavbar />
+          <SortNavbarProtect />
+
           <div className="recipescards-container">
-            <ListeRecettes />
+            <ListeRecettesProtect />
           </div>
         </div>
       </div>
@@ -37,4 +31,4 @@ const HomeListeRecettes = () => {
   );
 };
 
-export default HomeListeRecettes;
+export default HomeListeRecettesSecurisee;

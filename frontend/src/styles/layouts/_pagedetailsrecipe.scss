@@ -1,13 +1,13 @@
-.pagenewrecipe {
+.pagedetailsrecipe {
   display: grid;
   grid-template-rows: 255px, 1fr, 150px;
 
-  .new-content {
+  .details-content {
     min-height: 100vh;
     height: 100%;
     width: 100vw;
 
-    .new-text {
+    .details-text {
       border-top: 2px solid whitesmoke;
       height: fit-content;
       display: flex;
