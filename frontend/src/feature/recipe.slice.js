@@ -9,8 +9,9 @@ export const recipeSlice = createSlice({
     createRecipe: (state, { payload }) => {
       state.recipeData.push(payload);
     },
+    deleteNewRecipe: (state) => [],
   },
 });
 
-export const { createRecipe } = recipeSlice.actions;
+export const { createRecipe, deleteNewRecipe } = recipeSlice.actions;
 export default recipeSlice.reducer;

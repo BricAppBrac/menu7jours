@@ -2,14 +2,16 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { setConfirmDelete } from "../feature/indic.slice";
 import { deleteRecipe } from "../feature/liste.slice";
 
-const DeleteRecipe = (props) => {
+const ListeDeleteRecipe = (props) => {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState("");
   const [origin, setOrigin] = useState(props.delOrigin);
 
+  //////////////////////////////////////////
   const handleConfirm = async () => {
     console.log("delOrigin : " + props.delOrigin);
     console.log("recipeId : " + props.recipeId);
@@ -23,19 +25,24 @@ const DeleteRecipe = (props) => {
     if (origin == "liste-0") {
       setMessage("Confirmer la suppression");
       setOrigin("liste-1");
+      dispatch(setConfirmDelete("liste-1"));
     }
     if (origin == "liste-1") {
       setMessage("Suppression effectuée");
       setOrigin("liste-2");
+      dispatch(setConfirmDelete("liste-2"));
       handleDelete();
     }
     if (origin == "détails-0") {
       setMessage("Confirmer la suppression");
+      dispatch(setConfirmDelete("détails-1"));
       setOrigin("détails-1");
     }
     if (origin == "détails-1") {
       setMessage("Suppression effectuée");
+
       setOrigin("détails-2");
+      dispatch(setConfirmDelete("détails-2"));
       handleDelete();
     }
   };
@@ -62,4 +69,4 @@ const DeleteRecipe = (props) => {
   );
 };
 
-export default DeleteRecipe;
+export default ListeDeleteRecipe;

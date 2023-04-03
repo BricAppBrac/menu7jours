@@ -25,7 +25,6 @@
       font-size: 1.4rem;
     }
 
-   
     input,
     select {
       width: 98%;
@@ -67,8 +66,6 @@
       background: $parchemin3;
       width: 98%;
       height: 30px;
-      
-      
     }
 
     p {
@@ -95,29 +92,27 @@
       .details-input {
         display: flex;
         flex-direction: column;
-        
 
         label {
           margin-left: 10px;
         }
 
-       
         ////////////////////////////////////////////////////////////////
-          input[type=checkbox] {
-            position: absolute;
-            cursor: pointer;
-            width: 0px;
-            height: 0px;
+        input[type="checkbox"] {
+          position: absolute;
+          cursor: pointer;
+          width: 0px;
+          height: 0px;
 
           &:checked:before {
-                content: "";
-                position: absolute;
+            content: "";
+            position: absolute;
             display: block;
             width: 22px;
             height: 22px;
             border: 4px solid $brown1;
             // background-color: $parchemin3;
-             background: $green;
+            background: $green;
             transition: all 0.2s linear;
           }
 
@@ -132,7 +127,7 @@
             border: 3px solid $brown1;
             border-radius: 3px;
             // background-color: $parchemin3;
-               background: $green;
+            background: $green;
           }
 
           &:after {
@@ -151,7 +146,7 @@
             // transition: all 0.2s linear;
           }
 
-         &:checked:after {
+          &:checked:after {
             content: "";
             display: block;
             width: 12px;
@@ -166,7 +161,6 @@
             top: 26px;
             left: 36px;
           }
-
         }
         /////////////////////////////////////////
       }
@@ -181,15 +175,12 @@
       border-radius: 10px;
       max-height: 200px;
       overflow: auto;
-   background: $green;
-     
+      background: $green;
 
       .ingredient-bloc-details {
         margin: 5px 5px;
         display: flex;
-
       }
-     
     }
     .steps-container-details {
       border: 4px solid $green2;
@@ -199,48 +190,86 @@
       .details-input {
         padding-left: 5px;
         margin: 4px auto;
-           background: $green;
+        background: $green;
       }
     }
     .private-button-container {
       display: flex;
       justify-content: right;
-      margin: 5px auto;;
-
-      button {
-        font-weight: 700;
-        margin: 3px;
-        padding: 6px 12px;
-        font-size: 1.4rem;
-        border-radius: 20px;
-     
-
-        &:hover {
-          letter-spacing: 2.5px;
-          background: $brown1;
-          color: wheat;
-        }
-      }
+      margin: 5px 5px;
 
       .delete-container {
         display: flex;
+        justify-content: right;
+        margin: 0;
 
-        a {
-          transition: all 0.2s linear;
-          border-radius: 5px;
-          font-size: 1.4rem;
-          font-weight: 700;
-          align-items: center;
-          color: $brown1;
-          display: block;
-          padding: 3px;
+        padding: 0;
 
-          &:hover {
-            color: wheat;
+        .box-delete,
+        .box-details,
+        .box-modif-back {
+          height: 30px;
+          margin: 12px 2px;
+
+          button {
+            font-weight: 700;
+            margin: 3px;
+            padding: 6px 12px;
+            font-size: 1.4rem;
+            border-radius: 5px;
+            // display: block;
+            // margin: 0 5px 5px 0;
+            background-color: $green3;
+
+            &:hover {
+              letter-spacing: 2.5px;
+              background: $brown1;
+              color: wheat;
+
+            }
+            
+            a,
+            i {
+              text-decoration: none;
+              transition: all 0.2s linear;
+              // display: block;
+            
+              font-weight: 700;
+              align-items: center;
+              color: $green2;
+             
+              padding: px;
+              text-decoration: none;
+
+              &:hover {
+                color: wheat;
+                background: $brown1;
+              }
+
+              &:visited {
+                color: $green2;
+              }
+            }
+
+            a {
+              font-size: 1.3rem;
+
+              &:hover {
+                color: wheat;
+                background: $brown1;
+              }
+            }
+
+            i {
+              font-size: 1.4rem;
+            }
           }
-        
+
+          //}
         }
       }
+
+      // }
     }
   }
 }

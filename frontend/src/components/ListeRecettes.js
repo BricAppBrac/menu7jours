@@ -36,15 +36,15 @@ const ListeRecettes = () => {
   ///// ACTIONS
   //////////////////////
 
-  const handleDelete = () => {
-    console.log("suppression");
-  };
-  const handleEdit = () => {
-    console.log("modif");
-  };
-  const handleDetails = () => {
-    console.log("détails");
-  };
+  // const handleDelete = () => {
+  //   console.log("suppression");
+  // };
+  // const handleEdit = () => {
+  //   console.log("modif");
+  // };
+  // const handleDetails = () => {
+  //   console.log("détails");
+  // };
 
   return (
     <div className="recipescards-liste">

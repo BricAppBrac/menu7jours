@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createRecipe } from "../feature/recipe.slice";
 import axios from "axios";
 import IngredientCardDetails from "./IngredientCardDetails";
-import DeleteRecipe from "./DeleteRecipe";
+import DetailsDeleteRecipe from "./DetailsDeleteRecipe";
+import { NavLink } from "react-router-dom";
+import { setConfirmDelete } from "../feature/indic.slice";
 
 const RecipeDetailsProtect = () => {
   const [displayDetails, setDisplayDetails] = useState(true);
@@ -19,44 +21,44 @@ const RecipeDetailsProtect = () => {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
   ]);
 
-  const [newTitle, setNewTitle] = useState("");
-  const [newAuthor, setNewAuthor] = useState("Melissande");
-  const [newIngredients, setNewIngredients] = useState([]);
-  const [newQuantities, setNewQuantities] = useState([]);
-  const [newCategories, setNewCategories] = useState([]);
-  const [newSteps, setNewSteps] = useState([]);
-  const [newSeasons, setNewSeasons] = useState([]);
-  let arrayNew = [];
-  let arrayW = [];
+  // const [isEdit, setIsEdit] = useState(false);
+  // const [isValidate, setIsValidate] = useState(false);
+  // const [isDelete, setIsDelete] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
 
+  const confirmDelete = useSelector((state) => state.confDelete.confDelete);
   const dispatch = useDispatch();
+  dispatch(setConfirmDelete("détails-0"));
 
-  //////////////////////////////////////////////////////////////////////////////////
-  // Gestion des inputs
-  ////////////////////////////////////////////////////
-  ////////////////////////////
-  // Stockage des saisons
-  ///////////////////////
-  const handleSeasons = (newSeas) => {
-    if (document.getElementById(newSeas).checked == true) {
-      console.log("checked");
-      arrayW.push(newSeas);
-      arrayNew = [...newSeasons, ...arrayW];
-    } else {
-      console.log("décochée");
-      arrayW = newSeasons;
-      arrayNew = arrayW.filter(function (element) {
-        return element !== newSeas;
-      });
-    }
-    console.log("Seasons array");
-    console.log(arrayNew);
-    setNewSeasons(arrayNew);
-  };
+  // const [newTitle, setNewTitle] = useState("");
+  // const [newAuthor, setNewAuthor] = useState("Melissande");
+  // const [newIngredients, setNewIngredients] = useState([]);
+  // const [newQuantities, setNewQuantities] = useState([]);
+  // const [newCategories, setNewCategories] = useState([]);
+  // const [newSteps, setNewSteps] = useState([]);
+  // const [newSeasons, setNewSeasons] = useState([]);
+  // let arrayNew = [];
+  // let arrayW = [];
 
-  ////////////////////////
-  // --- Gestion du delete
-  ////////////////////////
+  // const dispatch = useDispatch();
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Gestion de l'édition pour modification
+  //////////////////////////////////////////////////
+
+  // const handleEdit = () => {
+  //   console.log("handleEdit");
+  //   console.log(checkedRecipe.title);
+  //   setIsEdit(true);
+  //   // setIsValidate(false);
+  // };
+
+  // const handleValidate = () => {
+  //   console.log("handleValidate");
+  //   console.log(checkedRecipe.title);
+  //   setIsValidate(true);
+  //   // setIsEdit(true);
+  // };
 
   /////////////////////////////////////////////////////////////////////////////////
 
@@ -81,6 +83,7 @@ const RecipeDetailsProtect = () => {
                   defaultChecked={
                     checkedRecipe.seasons.includes("printemps") ? "checked" : ""
                   }
+                  disabled="disabled"
                 />
               </div>
 
@@ -94,6 +97,7 @@ const RecipeDetailsProtect = () => {
                   defaultChecked={
                     checkedRecipe.seasons.includes("été") ? "checked" : ""
                   }
+                  disabled="disabled"
                 />
               </div>
               <div className="details-input">
@@ -106,6 +110,7 @@ const RecipeDetailsProtect = () => {
                   defaultChecked={
                     checkedRecipe.seasons.includes("automne") ? "checked" : ""
                   }
+                  disabled="disabled"
                 />
               </div>
               <div className="details-input">
@@ -118,6 +123,7 @@ const RecipeDetailsProtect = () => {
                   defaultChecked={
                     checkedRecipe.seasons.includes("hiver") ? "checked" : ""
                   }
+                  disabled="disabled"
                 />
               </div>
             </div>
@@ -150,12 +156,13 @@ const RecipeDetailsProtect = () => {
             </div>
             <p className="espace-message">{messageDetails}</p>
             <div className="private-button-container">
-              {/* <button>Supprimer</button> */}
-              <DeleteRecipe
+              <DetailsDeleteRecipe
                 recipeId={checkedRecipe._id}
                 delOrigin={"détails-0"}
+                // isEdit={isEdit}
+                // isValidate={isValidate}
+                // isDelete={isDelete}
               />
-              <button>Modifier</button>
             </div>
           </div>
         </div>

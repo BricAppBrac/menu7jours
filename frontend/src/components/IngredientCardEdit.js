@@ -1,51 +1,47 @@
 import React, { useRef } from "react";
 
-const IngredientCard = (props) => {
-  const newIngredientRef = useRef();
-  const newQuantityRef = useRef();
-  const newCategoryRef = useRef();
+const IngredientCardEdit = (props) => {
+  const editIngredientRef = useRef();
+  const editQuantityRef = useRef();
+  const editCategoryRef = useRef();
 
   return (
     <div>
-      <div className="ingredient-bloc">
-        <div className="new-input">
+      <div className="edit-ingredient-bloc">
+        <div className="edit-input">
           <input
-            name={"newIngrédient" + props.index}
+            name={"editIngrédient" + props.index}
             type="text"
-            className="details"
-            id={"newIngrédient" + props.index}
+            className="edit"
+            id={"editIngrédient" + props.index}
             autoComplete="off"
-            placeholder={"Ingrédient " + (props.index + 1)}
+            defaultValue={props.recipe.ingredients[props.index]}
             onChange={(e) => {
               props.handleIngredients(
                 e.target.value,
                 props.index,
-                newIngredientRef,
-                newQuantityRef,
-                newCategoryRef
+                editIngredientRef
               );
             }}
-            ref={newIngredientRef}
+            ref={editIngredientRef}
           />
         </div>
-        <div className="new-input">
+        <div className="edit-input">
           <input
-            name={"newQuantity" + props.index}
+            name={"editQuantity" + props.index}
             type="text"
-            className="details"
-            id={"newQuantity" + props.index}
+            className="edit"
+            id={"editQuantity" + props.index}
             autoComplete="off"
-            placeholder={"Quantité " + (props.index + 1)}
+            defaultValue={props.recipe.quantities[props.index]}
             onChange={(e) => {
               props.handleQuantities(
                 e.target.value,
                 props.index,
-                newIngredientRef,
-                newQuantityRef,
-                newCategoryRef
+                editQuantityRef
               );
             }}
-            ref={newQuantityRef}
+            ref={editQuantityRef}
           />
         </div>
         <div className="select-category">
@@ -56,14 +52,12 @@ const IngredientCard = (props) => {
               props.handleCategories(
                 e.target.value,
                 props.index,
-                newIngredientRef,
-                newQuantityRef,
-                newCategoryRef
+                editCategoryRef
               );
             }}
-            ref={newCategoryRef}
+            ref={editCategoryRef}
           >
-            <option value="">Catégorie</option>
+            <option value="bdd">{props.recipe.categories[props.index]}</option>
             <option value="Frais">Frais</option>
             <option value="Epicerie">Epicerie</option>
             <option value="Fruits/Légumes">Fruits/Légumes</option>
@@ -74,4 +68,4 @@ const IngredientCard = (props) => {
   );
 };
 
-export default IngredientCard;
+export default IngredientCardEdit;

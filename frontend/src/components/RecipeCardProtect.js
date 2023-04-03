@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setChecked } from "../feature/checked.slice";
-import DeleteRecipe from "./DeleteRecipe";
+import { setConfirmDelete } from "../feature/indic.slice";
+import ListeDeleteRecipe from "./ListeDeleteRecipe";
 
 const RecipeCardProtect = ({ recipe }) => {
   const dispatch = useDispatch();
+  // dispatch(setConfirmDelete("liste-0"));
 
   const handleDetails = () => {
     console.log("handleDetails");
@@ -33,7 +35,7 @@ const RecipeCardProtect = ({ recipe }) => {
               <i className="fa-solid fa-magnifying-glass"></i>
             </NavLink>
           </div>
-          <DeleteRecipe recipeId={recipe._id} delOrigin={"liste-0"} />
+          <ListeDeleteRecipe recipeId={recipe._id} delOrigin={"liste-0"} />
         </div>
       </div>
     </div>

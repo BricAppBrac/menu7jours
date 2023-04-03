@@ -40,7 +40,10 @@ module.exports.setCompleteRecipe = async (req, res) => {
 // fonction pour modifier une recette
 module.exports.editRecipe = async (req, res) => {
   const recipe = await RecipeModel.findById(req.params.id);
-
+  console.log("editRecipe controller");
+  console.log("req.params.id : " + req.params.id);
+  console.log("recipe : ");
+  console.log(recipe);
   if (!recipe) {
     res
       .status(400)
@@ -50,8 +53,9 @@ module.exports.editRecipe = async (req, res) => {
   const updateRecipe = await RecipeModel.findByIdAndUpdate(recipe, req.body, {
     new: true,
   });
-
+  console.log("updateRecipe : " + updateRecipe);
   res.status(200).json(updateRecipe);
+  console.log("status : " + res.statusCode);
 };
 
 // fonction pour supprimer une recette
