@@ -61,7 +61,11 @@
           cursor: pointer;
         }
 
-        &:active {
+        // &:active {
+        //   background: $parchemin;
+        // }
+
+        &.sortnav-active {
           background: $parchemin;
         }
 

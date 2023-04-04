@@ -98,7 +98,7 @@ const DetailsDeleteRecipe = (props) => {
       <div className="box-modif-back">
         {origin === "détails-1" ? (
           <button onClick={handleBack}>
-            <NavLink to="/PrivateRoute/pagedetailsrecipe">
+            <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
               <i className="fa-solid fa-rotate-left"></i>
             </NavLink>
           </button>

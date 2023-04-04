@@ -31,7 +31,7 @@ const RecipeCardProtect = ({ recipe }) => {
         </div>
         <div className="checkbox-container">
           <div className="box-details" onClick={handleDetails}>
-            <NavLink to="/pagedetailsrecipe">
+            <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
               <i className="fa-solid fa-magnifying-glass"></i>
             </NavLink>
           </div>

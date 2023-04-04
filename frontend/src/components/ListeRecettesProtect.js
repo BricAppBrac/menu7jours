@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import RecipeCardProtect from "../components/RecipeCardProtect";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getListe } from "../feature/liste.slice";
 
-const ListeRecettes = () => {
+const ListeRecettesProtect = () => {
   const dispatch = useDispatch();
   const liste = useSelector((state) => state.listeRecipes.listeData);
   const sortSelected = useSelector((state) => state.sortSelect.sortSelected);
@@ -21,23 +21,32 @@ const ListeRecettes = () => {
       {liste &&
         liste
           .slice()
+          //////////////////////////////////
+          // TRI sur la SAISON
+          /////////////////////////////////
           .filter((recipe) => {
-            if (sortSelected[0] === "Saison") {
+            if (sortSelected[1] && sortSelected[1] !== "saison") {
               if (recipe.seasons.includes(sortSelected[1])) {
                 console.log("Tri Saison filter : " + sortSelected[1]);
                 return recipe;
               }
-            } else if (sortSelected[0] === "MotClé") {
+            } else return recipe;
+          })
+          ///////////////////////////////
+          // TRI sur le MOT-CLE
+          ///////////////////////////////
+          .filter((recipe) => {
+            if (sortSelected[2]) {
               if (
                 recipe.title
                   .toLowerCase()
-                  .includes(sortSelected[1].toLowerCase()) ||
+                  .includes(sortSelected[2].toLowerCase()) ||
                 recipe.ingredients.some((ingr) =>
-                  ingr.toLowerCase().includes(sortSelected[1].toLowerCase())
+                  ingr.toLowerCase().includes(sortSelected[2].toLowerCase())
                 )
               ) {
                 console.log(
-                  "Tri Mot-Clé  filter titre et ingrédients: " + sortSelected[1]
+                  "Tri Mot-Clé  filter titre et ingrédients: " + sortSelected[2]
                 );
                 return recipe;
               }
@@ -45,11 +54,14 @@ const ListeRecettes = () => {
               return recipe;
             }
           })
+          //////////////////////////////////////////
+          // TRI CROISSANT ou DECROISSANT
+          /////////////////////////////////////////
           .sort((a, b) => {
             switch (sortSelected[0]) {
-              case "Croissant":
-                return b.title.localeCompare(a.title);
               case "Decroissant":
+                return b.title.localeCompare(a.title);
+              case "Croissant":
                 return a.title.localeCompare(b.title);
               default:
                 null;
@@ -62,4 +74,4 @@ const ListeRecettes = () => {
   );
 };
 
-export default ListeRecettes;
+export default ListeRecettesProtect;

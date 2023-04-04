@@ -1,10 +1,10 @@
 import React from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import RecipeDetails from "../components/RecipeDetails";
+import RecipeDetailsProtect from "../components/RecipeDetailsProtect";
 import SignUp from "../components/SignUp";
 
-const PageDetailsRecipe = () => {
+const PageDetailsRecipeProtect = () => {
   return (
     <div className="pagedetailsrecipe">
       <div className="details-navbar">
@@ -14,7 +14,7 @@ const PageDetailsRecipe = () => {
       <div className="details-content">
         <div className="details-text">
           <h1>Détails de la Recette</h1>
-          <RecipeDetails />
+          <RecipeDetailsProtect />
         </div>
       </div>
       <div className="details-footer">
@@ -24,4 +24,4 @@ const PageDetailsRecipe = () => {
   );
 };
 
-export default PageDetailsRecipe;
+export default PageDetailsRecipeProtect;

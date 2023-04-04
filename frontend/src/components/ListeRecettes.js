@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getListe } from "../feature/liste.slice";
-import { setChecked } from "../feature/checked.slice";
 
 const ListeRecettes = () => {
   const dispatch = useDispatch();
@@ -17,57 +16,37 @@ const ListeRecettes = () => {
       .then((res) => dispatch(getListe(res.data)));
   }, []);
 
-  ///////////////////////////////////////
-  // Stockage de la Recette Sélectionnée
-  ///////////////////////////////////////
-  // const handleRecipeChecked = (checkBox, checkedRec) => {
-  //   console.log(checkBox);
-  //   console.log(checkedRec);
-  //   if (document.getElementById(checkBox).checked === true) {
-  //     console.log("checked");
-  //     dispatch(setChecked(checkedRec));
-  //   } else {
-  //     console.log("décochée");
-  //     dispatch(setChecked([]));
-  //   }
-  // };
-
-  ////////////////////
-  ///// ACTIONS
-  //////////////////////
-
-  // const handleDelete = () => {
-  //   console.log("suppression");
-  // };
-  // const handleEdit = () => {
-  //   console.log("modif");
-  // };
-  // const handleDetails = () => {
-  //   console.log("détails");
-  // };
-
   return (
     <div className="recipescards-liste">
       {liste &&
         liste
           .slice()
+          //////////////////////////////////
+          // TRI sur la SAISON
+          /////////////////////////////////
           .filter((recipe) => {
-            if (sortSelected[0] === "Saison") {
+            if (sortSelected[1]) {
               if (recipe.seasons.includes(sortSelected[1])) {
                 console.log("Tri Saison filter : " + sortSelected[1]);
                 return recipe;
               }
-            } else if (sortSelected[0] === "MotClé") {
+            } else return recipe;
+          })
+          ///////////////////////////////
+          // TRI sur le MOT-CLE
+          ///////////////////////////////
+          .filter((recipe) => {
+            if (sortSelected[2]) {
               if (
                 recipe.title
                   .toLowerCase()
-                  .includes(sortSelected[1].toLowerCase()) ||
+                  .includes(sortSelected[2].toLowerCase()) ||
                 recipe.ingredients.some((ingr) =>
-                  ingr.toLowerCase().includes(sortSelected[1].toLowerCase())
+                  ingr.toLowerCase().includes(sortSelected[2].toLowerCase())
                 )
               ) {
                 console.log(
-                  "Tri Mot-Clé  filter titre et ingrédients: " + sortSelected[1]
+                  "Tri Mot-Clé  filter titre et ingrédients: " + sortSelected[2]
                 );
                 return recipe;
               }
@@ -75,23 +54,20 @@ const ListeRecettes = () => {
               return recipe;
             }
           })
+          //////////////////////////////////////////
+          // TRI CROISSANT ou DECROISSANT
+          /////////////////////////////////////////
           .sort((a, b) => {
             switch (sortSelected[0]) {
-              case "Croissant":
-                return b.title.localeCompare(a.title);
               case "Decroissant":
+                return b.title.localeCompare(a.title);
+              case "Croissant":
                 return a.title.localeCompare(b.title);
               default:
                 null;
             }
           })
-          .map((recipe) => (
-            <RecipeCard
-              key={recipe._id}
-              recipe={recipe}
-              // handleDetails={handleDetails}
-            />
-          ))}
+          .map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />)}
     </div>
   );
 };

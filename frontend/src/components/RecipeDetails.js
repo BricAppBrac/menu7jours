@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import IngredientCardDetails from "./IngredientCardDetails";
-import DetailsDeleteRecipe from "./DetailsDeleteRecipe";
-import { NavLink } from "react-router-dom";
 import { setConfirmDelete } from "../feature/indic.slice";
 
-const RecipeDetailsProtect = () => {
+const RecipeDetails = () => {
   const [displayDetails, setDisplayDetails] = useState(true);
   const [messageDetails, setMessageDetails] = useState("");
 
@@ -19,8 +17,10 @@ const RecipeDetailsProtect = () => {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
   ]);
 
-  const dispatch = useDispatch();
-  dispatch(setConfirmDelete("détails-0"));
+  // const dispatch = useDispatch();
+  // dispatch(setConfirmDelete("détails-0"));
+
+  /////////////////////////////////////////////////////////////////////////////////
 
   return (
     <>
@@ -115,12 +115,6 @@ const RecipeDetailsProtect = () => {
               ))}
             </div>
             <p className="espace-message">{messageDetails}</p>
-            <div className="private-button-container">
-              <DetailsDeleteRecipe
-                recipeId={checkedRecipe._id}
-                delOrigin={"détails-0"}
-              />
-            </div>
           </div>
         </div>
       )}
@@ -128,4 +122,4 @@ const RecipeDetailsProtect = () => {
   );
 };
 
-export default RecipeDetailsProtect;
+export default RecipeDetails;

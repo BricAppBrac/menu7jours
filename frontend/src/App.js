@@ -6,6 +6,7 @@ import PageNewRecipe from "./pages/PageNewRecipe";
 import HomeListeRecettesSecurisee from "./pages/HomeListeRecettesSecurisee";
 import PageDetailsRecipe from "./pages/PageDetailsRecipe";
 import PageDetailsEdit from "./pages/PageDetailsEdit";
+import PageDetailsRecipeProtect from "./pages/PageDetailsRecipeProtect";
 
 const App = () => {
   return (
@@ -23,6 +24,10 @@ const App = () => {
           element={<PageDetailsEdit />}
         />
         <Route path="/pagedetailsrecipe" element={<PageDetailsRecipe />} />
+        <Route
+          path="/PrivateRoute/pagedetailsrecipeprotect"
+          element={<PageDetailsRecipeProtect />}
+        />
       </Routes>
     </BrowserRouter>
   );
