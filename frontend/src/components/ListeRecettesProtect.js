@@ -3,6 +3,7 @@ import RecipeCardProtect from "../components/RecipeCardProtect";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getListe } from "../feature/liste.slice";
+import { setSort } from "../feature/sort.slice";
 
 const ListeRecettesProtect = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ const ListeRecettesProtect = () => {
   useEffect(() => {
     axios
       .get("http://localhost:5000/recipe/")
-      .then((res) => dispatch(getListe(res.data)));
+      .then((res) => dispatch(getListe(res.data)))
+      .then(() => dispatch(setSort(["Croissant", null, null])));
   }, []);
 
   return (
@@ -25,29 +27,70 @@ const ListeRecettesProtect = () => {
           // TRI sur la SAISON
           /////////////////////////////////
           .filter((recipe) => {
-            if (sortSelected[1] && sortSelected[1] !== "saison") {
+            // saison renseignée et différente de "saison" => une saison précise
+            if (
+              sortSelected[1] &&
+              sortSelected[1] !== "saison" &&
+              sortSelected[1] !== "toutes"
+            ) {
               if (recipe.seasons.includes(sortSelected[1])) {
-                console.log("Tri Saison filter : " + sortSelected[1]);
                 return recipe;
               }
-            } else return recipe;
+            }
+            // recette toute saison : recette avec les saisons toutes cochées ou aucune
+            else if (sortSelected[1] === "toutes") {
+              if (
+                (recipe.seasons.includes("printemps") &&
+                  recipe.seasons.includes("été") &&
+                  recipe.seasons.includes("automne") &&
+                  recipe.seasons.includes("hiver")) ||
+                recipe.seasons.length === 0
+              ) {
+                return recipe;
+              }
+            }
+            // saison non renseignée dans la barre de tri => n'importe quelle saison, on renvoie toutes les recettes
+            else {
+              return recipe;
+            }
           })
           ///////////////////////////////
           // TRI sur le MOT-CLE
           ///////////////////////////////
           .filter((recipe) => {
             if (sortSelected[2]) {
+              // if (
+              //   recipe.title
+              //     .toUpperCase()
+              //     .includes(sortSelected[2].toUpperCase()) ||
+              //   recipe.ingredients.some((ingr) =>
+              //     ingr.toUpperCase().includes(sortSelected[2].toUpperCase())
+              //   )
+              // ) {
               if (
                 recipe.title
-                  .toLowerCase()
-                  .includes(sortSelected[2].toLowerCase()) ||
+                  .normalize("NFD")
+                  .replace(/\p{Diacritic}/gu, "")
+                  .toUpperCase()
+                  .includes(
+                    sortSelected[2]
+                      .normalize("NFD")
+                      .replace(/\p{Diacritic}/gu, "")
+                      .toUpperCase()
+                  ) ||
                 recipe.ingredients.some((ingr) =>
-                  ingr.toLowerCase().includes(sortSelected[2].toLowerCase())
+                  ingr
+                    .normalize("NFD")
+                    .replace(/\p{Diacritic}/gu, "")
+                    .toUpperCase()
+                    .includes(
+                      sortSelected[2]
+                        .normalize("NFD")
+                        .replace(/\p{Diacritic}/gu, "")
+                        .toUpperCase()
+                    )
                 )
               ) {
-                console.log(
-                  "Tri Mot-Clé  filter titre et ingrédients: " + sortSelected[2]
-                );
                 return recipe;
               }
             } else {

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const IngredientCardEdit = (props) => {
   const editIngredientRef = useRef();
@@ -20,7 +20,9 @@ const IngredientCardEdit = (props) => {
               props.handleIngredients(
                 e.target.value,
                 props.index,
-                editIngredientRef
+                editIngredientRef,
+                editQuantityRef,
+                editCategoryRef
               );
             }}
             ref={editIngredientRef}
@@ -38,7 +40,9 @@ const IngredientCardEdit = (props) => {
               props.handleQuantities(
                 e.target.value,
                 props.index,
-                editQuantityRef
+                editIngredientRef,
+                editQuantityRef,
+                editCategoryRef
               );
             }}
             ref={editQuantityRef}
@@ -52,12 +56,15 @@ const IngredientCardEdit = (props) => {
               props.handleCategories(
                 e.target.value,
                 props.index,
+                editIngredientRef,
+                editQuantityRef,
                 editCategoryRef
               );
             }}
             ref={editCategoryRef}
           >
             <option value="bdd">{props.recipe.categories[props.index]}</option>
+            <option value=""></option>
             <option value="Frais">Frais</option>
             <option value="Epicerie">Epicerie</option>
             <option value="Fruits/Légumes">Fruits/Légumes</option>

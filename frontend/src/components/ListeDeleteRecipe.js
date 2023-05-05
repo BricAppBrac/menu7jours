@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setConfirmDelete } from "../feature/indic.slice";
 import { deleteRecipe } from "../feature/liste.slice";
+import { setChecked } from "../feature/checked.slice";
+import { createRecipe } from "../feature/recipe.slice";
 
 const ListeDeleteRecipe = (props) => {
   const dispatch = useDispatch();
@@ -12,58 +14,87 @@ const ListeDeleteRecipe = (props) => {
   const [origin, setOrigin] = useState(props.delOrigin);
 
   //////////////////////////////////////////
+  const handleCancel = () => {
+    console.log("handleCancel");
+    if (origin == "liste-1") {
+      setMessage("");
+      setOrigin("liste-0");
+    }
+  };
+  //////////////////////////////////////////
+  const handleDetails = () => {
+    console.log("handleDetails");
+    console.log(props.recipe);
+    dispatch(setChecked(props.recipe));
+    dispatch(createRecipe(props.recipe));
+    console.log("après dispatch setChecked et createRecipe");
+  };
+
+  //////////////////////////////////////////
   const handleConfirm = async () => {
     console.log("delOrigin : " + props.delOrigin);
-    console.log("recipeId : " + props.recipeId);
+    console.log("recipeId : " + props.recipe._id);
     console.log("origin : " + origin);
 
     const handleDelete = () => {
-      axios.delete("http://localhost:5000/recipe/" + props.recipeId);
-      dispatch(deleteRecipe(props.recipeId));
+      axios.delete("http://localhost:5000/recipe/" + props.recipe._id);
+      dispatch(deleteRecipe(props.recipe._id));
+      console.log("après dispatch deleteRecipe");
     };
 
     if (origin == "liste-0") {
       setMessage("Confirmer la suppression");
       setOrigin("liste-1");
       dispatch(setConfirmDelete("liste-1"));
+      console.log("après dispatch setConfirmDelete");
     }
     if (origin == "liste-1") {
       setMessage("Suppression effectuée");
       setOrigin("liste-2");
       dispatch(setConfirmDelete("liste-2"));
-      handleDelete();
-    }
-    if (origin == "détails-0") {
-      setMessage("Confirmer la suppression");
-      dispatch(setConfirmDelete("détails-1"));
-      setOrigin("détails-1");
-    }
-    if (origin == "détails-1") {
-      setMessage("Suppression effectuée");
-
-      setOrigin("détails-2");
-      dispatch(setConfirmDelete("détails-2"));
+      console.log("après dispatch setConfirmDelete");
       handleDelete();
     }
   };
 
   return (
     <div className="delete-container">
-      <div className="box-delete" onClick={handleConfirm}>
-        {origin == "détails-1" ? (
-          <button>
-            <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
-              <i className="fa-solid fa-trash"></i>
-            </NavLink>
-          </button>
+      <div className="box-info">
+        {origin === "liste-1" ? (
+          ""
         ) : (
-          <button>
+          <div className="box-details" onClick={handleDetails}>
+            <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
+              <i className="fa fa-sharp fa-solid fa-circle-info"></i>
+            </NavLink>
+          </div>
+        )}
+      </div>
+      <div className="box-delete">
+        {origin == "liste-1" ? (
+          <div className="box-message-conf">
+            <div className="box-message">
+              <p>{message}</p>
+            </div>
+            <div className="conf-suppr">
+              <button onClick={handleConfirm}>
+                <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
+                  <i className="fa-solid fa-thumbs-up"></i>
+                </NavLink>
+              </button>
+              <button onClick={handleCancel}>
+                <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
+                  <i className="fa-solid fa-thumbs-down"></i>
+                </NavLink>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button onClick={handleConfirm}>
             <i className="fa-solid fa-trash"></i>
           </button>
         )}
-      </div>
-      <div className="box-message">
-        <p>{message}</p>
+        {/* } */}
       </div>
     </div>
   );

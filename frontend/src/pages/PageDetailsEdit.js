@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarProtect from "../components/NavbarProtect";
 import DetailsEdit from "../components/DétailsEdit";
 import SignUp from "../components/SignUp";
 
@@ -8,7 +8,7 @@ const PageDetailsEdit = () => {
   return (
     <div className="pagenewrecipe">
       <div className="new-navbar">
-        <Navbar />
+        <NavbarProtect />
         <SignUp />
       </div>
       <div className="new-content">

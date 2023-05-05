@@ -103,6 +103,8 @@
       color: whitesmoke;
       padding: 2px;
       border-radius: 10px;
+      width: fit-content;
+      display: flex;
    
 
    
@@ -126,6 +128,13 @@
         height: 25px;
       
         }
+
+        #plusicon {
+          width: 30px;
+          height: 30px;
+          font-size: 2rem;
+          margin: 0 5px;
+          }
     
       }
 

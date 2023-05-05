@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { setSignUp, setCloseUp } from "../feature/signUp.slice";
 import { setSort } from "../feature/sort.slice";
 
-const Navbar = () => {
+const NavbarProtect = () => {
   const dispatch = useDispatch();
 
   const handleSignUp = async () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
           <ul>
             <li>
               <NavLink
-                to="/"
+                to="/PrivateRoute/HomeListeRecettesProtect"
                 className={(nav) => (nav.isActive ? "nav-active" : "")}
                 onClick={handleInit}
               >
@@ -59,4 +59,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarProtect;

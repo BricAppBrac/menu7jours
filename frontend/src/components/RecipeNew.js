@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createRecipe, deleteNewRecipe } from "../feature/recipe.slice";
 import axios from "axios";
 import IngredientCard from "./IngredientCard";
+import { NavLink } from "react-router-dom";
 
 const RecipeNew = () => {
   const [displayNew, setDisplayNew] = useState(true);
-  const [messageNew, setMessageNew] = useState("Saisir les informations");
+  const [messageNew, setMessageNew] = useState(
+    "Saisir les informations et valider"
+  );
 
   const [displayIngredients, setDisplayIngredients] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -24,19 +25,30 @@ const RecipeNew = () => {
   const [newCategories, setNewCategories] = useState([]);
   const [newSteps, setNewSteps] = useState([]);
 
-  const dispatch = useDispatch();
+  const data = {
+    title: newTitle,
+    author: newAuthor,
+    seasons: newSeasons,
+    ingredients: newIngredients,
+    quantities: newQuantities,
+    categories: newCategories,
+    steps: newSteps,
+    _id: Date.now(),
+  };
 
   let arrayNew = [];
   let arrayW = [];
 
-  // let arrayIngredients = newIngredients;
-  // let arrayQuantities = newQuantities;
-  // let arrayCategories = newCategories;
-  // let arraySteps = newSteps;
-
   //////////////////////////////////////////////////////////////////////////////////
   // Gestion des inputs
   ////////////////////////////////////////////////////
+  ////////////////////////////
+  // Stockage du titre
+  ///////////////////////
+  const handleTitle = (newTit) => {
+    setNewTitle(newTit);
+    data.title = newTit;
+  };
   ////////////////////////////
   // Stockage des saisons
   ///////////////////////
@@ -56,6 +68,7 @@ const RecipeNew = () => {
     console.log("Seasons array");
     console.log(arrayNew);
     setNewSeasons(arrayNew);
+    data.seasons = arrayNew;
     arrayNew = [];
     arrayW = [];
   };
@@ -69,14 +82,9 @@ const RecipeNew = () => {
     newQuantityRef,
     newCategoryRef
   ) => {
-    console.log("newVal Ingrédient :");
+    console.log("newVal handleIngrédients :");
     console.log(newVal);
     console.log("ingId :" + ingId);
-    console.log("newIngredientRef :");
-    console.log(newIngredientRef);
-
-    console.log("newIngredients avant ajout");
-    console.log(newIngredients);
 
     arrayNew = [...newIngredients];
     console.log("arrayNew avant ajout :");
@@ -90,8 +98,8 @@ const RecipeNew = () => {
     console.log(newIngredients);
 
     // Contrôle du trio Ing / Qtt / Cat
-    if (newIngredients[ingId]) {
-      console.log("ingrédient renseigné : " + newIngredients[ingId]);
+    if (arrayNew[ingId]) {
+      console.log("ingrédient renseigné : " + arrayNew[ingId]);
 
       if (!newQuantities[ingId] || !newCategories[ingId]) {
         setMessageNew(
@@ -101,28 +109,26 @@ const RecipeNew = () => {
           "Saisir une quantité et une catégorie pour chaque ingrédient"
         );
         document.getElementById("form-new-validation").disabled = "disabled";
+        newIngredientRef.current.style.backgroundColor = "#d65630";
+        newIngredientRef.current.style.color = "rgb(206, 228, 187)";
         newQuantityRef.current.style.backgroundColor = "#d65630";
         newQuantityRef.current.style.color = "rgb(206, 228, 187)";
         newCategoryRef.current.style.backgroundColor = "#d65630";
         newCategoryRef.current.style.color = "rgb(206, 228, 187)";
       } else {
-        // Contrôle du trio OK
-
-        setMessageNew("Effectuer les modifications et valider");
-        document.getElementById("form-validation").disabled = false;
         newIngredientRef.current.style.backgroundColor = "whitesmoke";
         newIngredientRef.current.style.color = "rgb(37, 21, 11)";
         newQuantityRef.current.style.backgroundColor = "whitesmoke";
         newQuantityRef.current.style.color = "rgb(37, 21, 11)";
         newCategoryRef.current.style.backgroundColor = "whitesmoke";
         newCategoryRef.current.style.color = "rgb(37, 21, 11)";
+        // Contrôle du trio pour toutes les autres lignes
+        data.ingredients = arrayNew;
+        handleTrioFinal();
+        arrayW = [];
+        arrayNew = [];
       }
     }
-
-    // arrayIngredients[ingId] = newVal;
-    // console.log("arrayIngredients :");
-    // console.log(arrayIngredients);
-    // setNewIngredients(arrayIngredients);
   };
   /////////////////////////////
   // Stockage des quantités
@@ -134,6 +140,7 @@ const RecipeNew = () => {
     newQuantityRef,
     newCategoryRef
   ) => {
+    console.log("handleQuantities :");
     console.log("newQtt Quantité :");
     console.log(newQtt);
     console.log("qttId :" + qttId);
@@ -156,8 +163,8 @@ const RecipeNew = () => {
     console.log(newQuantities);
 
     // Contrôle du trio Ing / Qtt / Cat
-    if (newQuantities[qttId]) {
-      console.log("quantité renseignée : " + newQuantities[qttId]);
+    if (arrayNew[qttId]) {
+      console.log("quantité renseignée : " + arrayNew[qttId]);
 
       if (!newIngredients[qttId] || !newCategories[qttId]) {
         setMessageNew(
@@ -169,26 +176,24 @@ const RecipeNew = () => {
         document.getElementById("form-new-validation").disabled = "disabled";
         newIngredientRef.current.style.backgroundColor = "#d65630";
         newIngredientRef.current.style.color = "rgb(206, 228, 187)";
+        newQuantityRef.current.style.backgroundColor = "#d65630";
+        newQuantityRef.current.style.color = "rgb(206, 228, 187)";
         newCategoryRef.current.style.backgroundColor = "#d65630";
         newCategoryRef.current.style.color = "rgb(206, 228, 187)";
       } else {
-        // Contrôle du trio OK
-
-        setMessageNew("Effectuer les modifications et valider");
-        document.getElementById("form-new-validation").disabled = false;
         newIngredientRef.current.style.backgroundColor = "whitesmoke";
         newIngredientRef.current.style.color = "rgb(37, 21, 11)";
         newQuantityRef.current.style.backgroundColor = "whitesmoke";
         newQuantityRef.current.style.color = "rgb(37, 21, 11)";
         newCategoryRef.current.style.backgroundColor = "whitesmoke";
         newCategoryRef.current.style.color = "rgb(37, 21, 11)";
+        // Contrôle du trio pour toutes les autres lignes
+        data.quantities = arrayNew;
+        handleTrioFinal();
+        arrayW = [];
+        arrayNew = [];
       }
     }
-
-    // arrayQuantities[qttId] = newQtt;
-    // console.log("arrayQuantités :");
-    // console.log(arrayQuantities);
-    // setNewQuantities(arrayQuantities);
   };
   /////////////////////////////
   // Stockage des catégories
@@ -219,42 +224,42 @@ const RecipeNew = () => {
     console.log(arrayNew);
 
     setNewCategories(arrayNew);
+
     console.log("newCategories après:");
     console.log(newCategories);
 
     // Contrôle du trio Ing / Qtt / Cat
-    // if (newCategories[catId]) {
-    console.log("catégorie renseignée : " + newCategories[catId]);
+    if (arrayNew[catId]) {
+      console.log("catégorie renseignée : " + arrayNew[catId]);
 
-    if (!newIngredients[catId] || !newQuantities[catId]) {
-      setMessageNew(
-        "Saisir un ingrédient et une quantité pour chaque catégorie"
-      );
-      console.log("Saisir un ingrédient et une quantité pour chaque catégorie");
-      document.getElementById("form-new-validation").disabled = "disabled";
-      newIngredientRef.current.style.backgroundColor = "whitesmoke";
-      newIngredientRef.current.style.color = "rgb(37, 21, 11)";
-
-      newCategoryRef.current.style.backgroundColor = "whitesmoke";
-      newCategoryRef.current.style.color = "rgb(37, 21, 11)";
-    } else {
-      // Contrôle du trio OK
-
-      setMessageNew("Effectuer les modifications et valider");
-      document.getElementById("form-new-validation").disabled = false;
-      newIngredientRef.current.style.backgroundColor = "whitesmoke";
-      newIngredientRef.current.style.color = "rgb(37, 21, 11)";
-      newQuantityRef.current.style.backgroundColor = "whitesmoke";
-      newQuantityRef.current.style.color = "rgb(37, 21, 11)";
-      newCategoryRef.current.style.backgroundColor = "whitesmoke";
-      newCategoryRef.current.style.color = "rgb(37, 21, 11)";
+      if (!newIngredients[catId] || !newQuantities[catId]) {
+        setMessageNew(
+          "Saisir un ingrédient et une quantité pour chaque catégorie"
+        );
+        console.log(
+          "Saisir un ingrédient et une quantité pour chaque catégorie"
+        );
+        document.getElementById("form-new-validation").disabled = "disabled";
+        newIngredientRef.current.style.backgroundColor = "#d65630";
+        newIngredientRef.current.style.color = "rgb(206, 228, 187)";
+        newQuantityRef.current.style.backgroundColor = "#d65630";
+        newQuantityRef.current.style.color = "rgb(206, 228, 187)";
+        newCategoryRef.current.style.backgroundColor = "#d65630";
+        newCategoryRef.current.style.color = "rgb(206, 228, 187)";
+      } else {
+        newIngredientRef.current.style.backgroundColor = "whitesmoke";
+        newIngredientRef.current.style.color = "rgb(37, 21, 11)";
+        newQuantityRef.current.style.backgroundColor = "whitesmoke";
+        newQuantityRef.current.style.color = "rgb(37, 21, 11)";
+        newCategoryRef.current.style.backgroundColor = "whitesmoke";
+        newCategoryRef.current.style.color = "rgb(37, 21, 11)";
+        // Contrôle du trio pour toutes les autres lignes
+        data.categories = arrayNew;
+        handleTrioFinal();
+        arrayW = [];
+        arrayNew = [];
+      }
     }
-    // }
-
-    // arrayCategories[catId] = newCat;
-    // console.log("arrayCategories :");
-    // console.log(arrayCategories);
-    // setNewCategories(arrayCategories);
   };
   /////////////////////////////
   // Stockage des étapes
@@ -274,12 +279,9 @@ const RecipeNew = () => {
     setNewSteps(arrayNew);
     console.log("newSteps après:");
     console.log(newSteps);
-
-    // arraySteps[stpId] = newStp;
-    // console.log("arraySteps");
-    // console.log(arraySteps);
-    // setNewSteps(arraySteps);
-    // console.log(newSteps);
+    data.steps = arrayNew;
+    arrayW = [];
+    arrayNew = [];
   };
   ///////////////////////////
   // Reset du formulaire
@@ -289,59 +291,56 @@ const RecipeNew = () => {
     document.getElementById("new-form").reset();
   };
 
-  ////////////////////////////////////////////////////////////////////////////
-  // Contrôle Trio Ingrédient / Quantité / Catégorie avant modif BDD et Store
-  //////////////////////////////////////////////////////////////////////////////
-  const handleTrio = () => {
-    //--------------------------------------
-    console.log("handleTrio");
-
-    for (let i = 0; i < 20; i++) {
-      ////////// SI INGREDIENT RENSEIGNE, CONTROLE DE QUANTITE ET CATEGORIE /////////////////////
-      if (newIngredients[i]) {
-        if (!arrayQuantities[i] || !arrayCategories[i]) {
-          setMessageNew(
-            "Saisir une quantité et une catégorie pour chaque ingrédient"
-          );
-          console.log(
-            "Saisir une quantité et une catégorie pour chaque ingrédient"
-          );
-          break; // arrête la boucle si un ingrédient n'a pas de quantité ou de catégorie
-        }
-      }
-      //////////////////////
-      ////////// SI QUANTITE RENSEIGNEE, CONTROLE DE INGREDIENT ET CATEGORIE /////////////////////
-      if (arrayQuantities[i]) {
-        if (!arrayIngredients[i] || !arrayCategories[i]) {
-          setMessageNew(
-            "Saisir un ingrédient et une catégorie pour chaque quantité"
-          );
-          console.log(
-            "Saisir un ingrédient et une catégorie pour chaque quantité"
-          );
-          break; // arrête la boucle si un ingrédient n'a pas de quantité ou de catégorie
-        }
-      }
-      //////////////////////
-      ////////// SI CATEGORIE RENSEIGNEE, CONTROLE DE INGREDIENT ET QUANTITE /////////////////////
-      if (arrayCategories[i]) {
-        if (!arrayIngredients[i] || !arrayQuantities[i]) {
-          setMessageNew(
-            "Saisir un ingrédient et une quantité pour chaque catégorie"
-          );
-          console.log(
-            "Saisir un ingrédient et une quantité pour chaque catégorie"
-          );
-
-          break; // arrête la boucle si un ingrédient n'a pas de quantité ou de catégorie
-        }
-      }
-
-      //////////////////////
-    }
-    handleNew();
-  };
   /////////////////////////////
+  // Contrôle du Trio Ingrédient / Quantité / Catégorie pour toutes les lignes avant validation
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  const handleTrioFinal = () => {
+    console.log("handleTrioFinal");
+
+    let validate = true;
+    //////////////////////////////////////////////
+    for (let i = 0; i < 20; i++) {
+      if (!data.ingredients[i] && !data.quantities[i] && !data.categories[i]) {
+        console.log("ligne vide : " + i);
+      } else {
+        // Cas Ingrédient non renseigné, et l'un des 2 autres renseigné
+        console.log("ligne renseignée : " + i);
+        if (!data.ingredients[i]) {
+          console.log("ingrédient non renseigné");
+          setMessageNew(
+            "Saisir une quantité et une catégorie pour chaque ingrédient"
+          );
+          validate = false;
+          break; // arrête la boucle si un ingrédient n'a pas de quantité ou de catégorie
+        }
+        // Cas Quantité non renseignée, et l'un des 2 autres renseigné
+        if (!data.quantities[i]) {
+          console.log("quantité non renseignée");
+          setMessageNew(
+            "Saisir une quantité et une catégorie pour chaque ingrédient"
+          );
+          validate = false;
+          break;
+        }
+        // Cas Catégorie non renseignée, et l'un des 2 autres renseigné
+        if (!data.categories[i]) {
+          console.log("catégorie non renseignée");
+          setMessageNew(
+            "Saisir une quantité et une catégorie pour chaque ingrédient"
+          );
+          validate = false;
+          break;
+        }
+      }
+    }
+
+    // Cas toutes les zones sont renseignées
+    if (validate) {
+      console.log("toutes les lignes sont renseignées correctement");
+      setMessageNew("Effectuer les modifications et valider");
+      document.getElementById("form-new-validation").disabled = false;
+    }
+  };
 
   /////////////////////////////////////////////////////////////////////////////////
   // --- Création dans le store et la BDD ---
@@ -378,7 +377,7 @@ const RecipeNew = () => {
       "Création effectuée, vous pouvez saisir une nouvelle recette"
     );
     resetForm();
-    dispatch(deleteNewRecipe());
+    // dispatch(deleteNewRecipe());
   };
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -395,6 +394,8 @@ const RecipeNew = () => {
     console.log(newQuantities);
     console.log(newCategories);
     console.log(newSteps);
+    console.log("data ********************");
+    console.log(data);
 
     // Création d'une nouvelle recette dans le store
     console.log("Création d'une nouvelle recette dans le store");
@@ -402,24 +403,16 @@ const RecipeNew = () => {
 
     handleNew();
 
-    const data = {
-      title: newTitle,
-      author: newAuthor,
-      seasons: newSeasons,
-      ingredients: newIngredients,
-      quantities: newQuantities,
-      categories: newCategories,
-      steps: newSteps,
-      _id: Date.now(),
-    };
-
-    // dispatch(createRecipe(data));
-
-    //---------------------------------------------------------------------------------------------------------------------
-    // Contrôle des inputs obligatoires : lorsqu'un ingrédient est renseigné, la quantité et la catégorie sont obligatoires
-    // Si OK création Store et BDD
-    //---------------------------------------------------------------------------------------------------------------------
-    // handleTrio();
+    // const data = {
+    //   title: newTitle,
+    //   author: newAuthor,
+    //   seasons: newSeasons,
+    //   ingredients: newIngredients,
+    //   quantities: newQuantities,
+    //   categories: newCategories,
+    //   steps: newSteps,
+    //   _id: Date.now(),
+    // };
   };
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -431,7 +424,6 @@ const RecipeNew = () => {
         <div className="recipe-new">
           <form onSubmit={handleSubmitNew} className="new-form" id="new-form">
             <div className="new-input">
-              {/* <label htmlFor="newTitle">Titre de la Recette</label> */}
               <h4>Titre de la Recette</h4>
               <input
                 name="newTitle"
@@ -440,7 +432,7 @@ const RecipeNew = () => {
                 className="new"
                 id="newTitle"
                 autoComplete="off"
-                onChange={(e) => setNewTitle(e.target.value)}
+                onChange={(e) => handleTitle(e.target.value)}
               />
             </div>
             <h4>Saisons</h4>
@@ -506,7 +498,6 @@ const RecipeNew = () => {
                 <IngredientCard
                   key={index}
                   index={index}
-                  // inputValue={""}
                   handleIngredients={handleIngredients}
                   handleQuantities={handleQuantities}
                   handleCategories={handleCategories}
@@ -535,6 +526,11 @@ const RecipeNew = () => {
             </div>
             <p className="espace-message">{messageNew}</p>
             <div className="button-container">
+              <button>
+                <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
+                  <i className="fa-solid fa-rotate-left"></i>
+                </NavLink>
+              </button>
               <button id="form-new-validation">Valider</button>
             </div>
           </form>

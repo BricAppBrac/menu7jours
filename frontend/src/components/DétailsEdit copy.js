@@ -159,6 +159,13 @@ const DétailsEdit = () => {
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
+    } else {
+      //cas de la suppression d'une ligne existante
+      console.log("ingId <= newRecipeData.ingredients.length");
+      arrayW = arrayNewIngredients.splice(ingId, 1, "");
+      data.ingredients = arrayNewIngredients;
+      dispatch(createRecipe(data));
+      console.log("après dispatch pour suppression ligne vide : " + ingId);
     }
 
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
@@ -201,88 +208,90 @@ const DétailsEdit = () => {
         console.log("handleIngredients - nouveau trio - caractères suivants");
         arrayW = arrayNewIngredients.splice(ingId, 1, newVal);
       }
-    }
-    console.log("arrayNewIngredients");
-    console.log(arrayNewIngredients);
-    data.ingredients = arrayNewIngredients;
 
-    console.log("data après splice/push handleIngredients");
+      console.log("arrayNewIngredients");
+      console.log(arrayNewIngredients);
+      data.ingredients = arrayNewIngredients;
 
-    console.log(data);
+      console.log("data après splice/push handleIngredients");
 
-    dispatch(createRecipe(data));
-    console.log("après dispatch createRecipe");
-    // }
-
-    ////////////////////////////////////////////////////////////////////////
-    // Contrôle du trio Ing / Qtt / Cat
-    ////////////////////////////////////////////////////////////////////////
-    if (
-      !data.ingredients[ingId] &&
-      !data.quantities[ingId] &&
-      !data.categories[ingId]
-    ) {
-      setMessageEdit("Ligne effacée, valider pour confirmer");
-      arrayW = arrayNewIngredients.filter(function (element, index) {
-        return index !== ingId;
-      });
-      newData = { ...data, ingredients: arrayW };
-      data = newData;
-
-      arrayW = arrayNewQuantities.filter(function (element, index) {
-        return index !== ingId;
-      });
-      newData = { ...data, quantities: arrayW };
-      data = newData;
-
-      arrayW = arrayNewCategories.filter(function (element, index) {
-        return index !== ingId;
-      });
-      newData = { ...data, categories: arrayW };
-      data = newData;
+      console.log(data);
       // dispatch(editNewRecipe(data));
       // console.log("après dispatch editNewRecipe");
       dispatch(createRecipe(data));
       console.log("après dispatch createRecipe");
-      validate = true;
-      handleValidationOpen(ingId);
-      console.log(
-        "data après handleValidationOpen avec 3 zones trio à blanc - handleIngredients"
-      );
-      console.log(data);
-    } else if (
-      !data.ingredients[ingId] ||
-      !data.quantities[ingId] ||
-      !data.categories[ingId]
-    ) {
-      setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
-      validate = false;
-      handleValidationOpen(ingId);
-      console.log(
-        "data après handleValidationOpen avec zone trio à blanc - handleIngredients"
-      );
-      console.log(data);
-    } else {
-      setMessageEdit("Effectuer les modifications et valider");
-      validate = true;
-      handleValidationOpen(ingId);
-      console.log(
-        "data après handleValidationOpen zones trio renseignées - handleIngredients"
-      );
-      console.log(data);
-    }
-    ////////////////////////////////////////////////
-    // Contrôle du trio pour toutes les autres lignes
-    ////////////////////////////////////////////////
-    handleTrioFinal();
-    console.log("data après handleTrioFinal");
-    console.log(data);
+      // }
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
-    // }
+      ////////////////////////////////////////////////////////////////////////
+      // Contrôle du trio Ing / Qtt / Cat
+      ////////////////////////////////////////////////////////////////////////
+      if (
+        !data.ingredients[ingId] &&
+        !data.quantities[ingId] &&
+        !data.categories[ingId]
+      ) {
+        setMessageEdit("Ligne effacée, valider pour confirmer");
+        arrayW = arrayNewIngredients.filter(function (element, index) {
+          return index !== ingId;
+        });
+        newData = { ...data, ingredients: arrayW };
+        data = newData;
+
+        arrayW = arrayNewQuantities.filter(function (element, index) {
+          return index !== ingId;
+        });
+        newData = { ...data, quantities: arrayW };
+        data = newData;
+
+        arrayW = arrayNewCategories.filter(function (element, index) {
+          return index !== ingId;
+        });
+        newData = { ...data, categories: arrayW };
+        data = newData;
+        // dispatch(editNewRecipe(data));
+        // console.log("après dispatch editNewRecipe");
+        dispatch(createRecipe(data));
+        console.log("après dispatch createRecipe");
+        validate = true;
+        handleValidationOpen(ingId);
+        console.log(
+          "data après handleValidationOpen avec 3 zones trio à blanc - handleIngredients"
+        );
+        console.log(data);
+      } else if (
+        !data.ingredients[ingId] ||
+        !data.quantities[ingId] ||
+        !data.categories[ingId]
+      ) {
+        setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
+        validate = false;
+        handleValidationOpen(ingId);
+        console.log(
+          "data après handleValidationOpen avec zone trio à blanc - handleIngredients"
+        );
+        console.log(data);
+      } else {
+        setMessageEdit("Effectuer les modifications et valider");
+        validate = true;
+        handleValidationOpen(ingId);
+        console.log(
+          "data après handleValidationOpen zones trio renseignées - handleIngredients"
+        );
+        console.log(data);
+      }
+      ////////////////////////////////////////////////
+      // Contrôle du trio pour toutes les autres lignes
+      ////////////////////////////////////////////////
+      handleTrioFinal();
+      console.log("data après handleTrioFinal");
+      console.log(data);
+
+      arrayW = [];
+      arrayNewIngredients = [];
+      arrayNewQuantities = [];
+      arrayNewCategories = [];
+      // }
+    }
   };
   /////////////////////////////
   // Stockage des quantités
@@ -299,6 +308,12 @@ const DétailsEdit = () => {
     console.log("newQtt : " + newQtt);
     console.log("qttId :" + qttId);
 
+    console.log("editIngredientRef : ");
+    console.log(editIngredientRef.current.value);
+    console.log("editQuantityRef : ");
+    console.log(editQuantityRef.current.value);
+    console.log("editCategoryRef : ");
+    console.log(editCategoryRef.current.value);
     data = {
       title: newRecipeData.title,
       author: "Melissande",
@@ -326,6 +341,13 @@ const DétailsEdit = () => {
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
+    } else {
+      //cas de la suppression d'une ligne existante
+      console.log("qttId <= newRecipeData.quantities.length");
+      arrayW = arrayNewQuantities.splice(qttId, 1, "");
+      data.quantities = arrayNewQuantities;
+      dispatch(createRecipe(data));
+      console.log("après dispatch pour suppression ligne vide : " + qttId);
     }
 
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
@@ -369,95 +391,109 @@ const DétailsEdit = () => {
         console.log("handleQuantities - nouveau trio - caractères suivants");
         arrayW = arrayNewQuantities.splice(qttId, 1, newQtt);
       }
-    }
-    console.log("arrayNewQuantities");
-    console.log(arrayNewQuantities);
-    data.quantities = arrayNewQuantities;
 
-    console.log("data après splice/push handleQuantities");
-    console.log(data);
-    dispatch(createRecipe(data));
-    console.log("après dispatch createRecipe");
-
-    //////////////////////////////////////////////////////
-    // Contrôle du trio Ing / Qtt / Cat
-    //////////////////////////////////////////////////////
-    if (
-      !data.ingredients[qttId] &&
-      !data.quantities[qttId] &&
-      !data.categories[qttId]
-    ) {
-      setMessageEdit("Ligne effacée, valider pour confirmer");
-      validate = true;
-      arrayW = arrayNewIngredients.filter(function (element, index) {
-        return index !== qttId;
-      });
-      newData = { ...data, ingredients: arrayW };
-      data = newData;
-
-      arrayW = arrayNewQuantities.filter(function (element, index) {
-        return index !== qttId;
-      });
-      newData = { ...data, quantities: arrayW };
-      data = newData;
-
-      arrayW = arrayNewCategories.filter(function (element, index) {
-        return index !== qttId;
-      });
-      newData = { ...data, categories: arrayW };
-      data = newData;
+      console.log("arrayNewQuantities");
+      console.log(arrayNewQuantities);
+      data.quantities = arrayNewQuantities;
+      console.log("data après splice/push handleQuantities");
+      console.log(data);
       // dispatch(editNewRecipe(data));
       // console.log("après dispatch editNewRecipe");
       dispatch(createRecipe(data));
       console.log("après dispatch createRecipe");
-      validate = true;
-      handleValidationOpen(qttId);
-      console.log(
-        "data après handleValidationOpen avec 3 zones trio à blanc - handleQuantities"
-      );
-      console.log(data);
-    } else if (
-      !data.ingredients[qttId] ||
-      !data.quantities[qttId] ||
-      !data.categories[qttId]
-    ) {
-      setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
-      validate = false;
-      handleValidationOpen(qttId);
-      console.log(
-        "data après handleValidationOpen avec zone trio à blanc - handleQuantities"
-      );
-      console.log(data);
-    } else {
-      setMessageEdit("Effectuer les modifications et valider");
-      validate = true;
-      handleValidationOpen(qttId);
-      console.log(
-        "data après handleValidationOpen zones trio renseignées - handleQuantities"
-      );
-      console.log(data);
-      ////////////////////////////////////////////////
-      // Contrôle du trio pour toutes les autres lignes
-      ////////////////////////////////////////////////
-      handleTrioFinal();
-      console.log("data après handleTrioFinal");
-      console.log(data);
-    }
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
+      //////////////////////////////////////////////////////
+      // Contrôle du trio Ing / Qtt / Cat
+      //////////////////////////////////////////////////////
+      if (
+        !data.ingredients[qttId] &&
+        !data.quantities[qttId] &&
+        !data.categories[qttId]
+      ) {
+        setMessageEdit("Ligne effacée, valider pour confirmer");
+        validate = true;
+        arrayW = arrayNewIngredients.filter(function (element, index) {
+          return index !== qttId;
+        });
+        newData = { ...data, ingredients: arrayW };
+        data = newData;
+
+        arrayW = arrayNewQuantities.filter(function (element, index) {
+          return index !== qttId;
+        });
+        newData = { ...data, quantities: arrayW };
+        data = newData;
+
+        arrayW = arrayNewCategories.filter(function (element, index) {
+          return index !== qttId;
+        });
+        newData = { ...data, categories: arrayW };
+        data = newData;
+        // dispatch(editNewRecipe(data));
+        // console.log("après dispatch editNewRecipe");
+        dispatch(createRecipe(data));
+        console.log("après dispatch createRecipe");
+        validate = true;
+        handleValidationOpen(qttId);
+        console.log(
+          "data après handleValidationOpen avec 3 zones trio à blanc - handleQuantities"
+        );
+        console.log(data);
+      } else if (
+        !data.ingredients[qttId] ||
+        !data.quantities[qttId] ||
+        !data.categories[qttId]
+      ) {
+        setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
+        validate = false;
+        handleValidationOpen(qttId);
+        console.log(
+          "data après handleValidationOpen avec zone trio à blanc - handleQuantities"
+        );
+        console.log(data);
+      } else {
+        setMessageEdit("Effectuer les modifications et valider");
+        validate = true;
+        handleValidationOpen(qttId);
+        console.log(
+          "data après handleValidationOpen zones trio renseignées - handleQuantities"
+        );
+        console.log(data);
+        ////////////////////////////////////////////////
+        // Contrôle du trio pour toutes les autres lignes
+        ////////////////////////////////////////////////
+        handleTrioFinal();
+        console.log("data après handleTrioFinal");
+        console.log(data);
+      }
+
+      arrayW = [];
+      arrayNewIngredients = [];
+      arrayNewQuantities = [];
+      arrayNewCategories = [];
+    }
   };
   /////////////////////////////
   // Stockage des catégories
   /////////////////////////////
-  const handleCategories = (newCat, catId) => {
+  const handleCategories = (
+    newCat,
+    catId,
+    editIngredientRef,
+    editQuantityRef,
+    editCategoryRef
+  ) => {
     //--------------------------------------
     console.log("appel handleCategories");
     console.log("newCat Catégorie :" + newCat);
     console.log("catId :" + catId);
 
+    console.log("editIngredientRef : ");
+    console.log(editIngredientRef.current.value);
+    console.log("editQuantityRef : ");
+    console.log(editQuantityRef.current.value);
+    console.log("editCategoryRef : ");
+    console.log(editCategoryRef.current.value);
     data = {
       title: newRecipeData.title,
       author: "Melissande",
@@ -486,6 +522,13 @@ const DétailsEdit = () => {
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
+    } else {
+      //cas de la suppression d'une ligne existante
+      console.log("catId <= newRecipeData.quantities.length");
+      arrayW = arrayNewQuantities.splice(catId, 1, "");
+      data.quantities = arrayNewQuantities;
+      dispatch(createRecipe(data));
+      console.log("après dispatch pour suppression ligne vide : " + catId);
     }
 
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
@@ -532,89 +575,91 @@ const DétailsEdit = () => {
         console.log("handleCategories - nouveau trio - caractères suivants");
         arrayW = arrayNewCategories.splice(catId, 1, newCat);
       }
-    }
-    console.log("arrayNewCategories");
-    console.log(arrayNewCategories);
-    data.categories = arrayNewCategories;
 
-    console.log("data après splice/push handleCategories");
-    console.log(data);
-    dispatch(createRecipe(data));
-    console.log("après dispatch createRecipe");
-
-    ////////////////////////////////////////////////
-    // Contrôle du trio Ing / Qtt / Cat
-    ////////////////////////////////////////////////
-    if (
-      !data.ingredients[catId] &&
-      !data.quantities[catId] &&
-      !data.categories[catId]
-    ) {
-      setMessageEdit("Ligne effacée, valider pour confirmer");
-      console.log("arrayNewIngredients : &&&&");
-      console.log(arrayNewIngredients);
-      validate = true;
-
-      arrayW = arrayNewIngredients.filter(function (element, index) {
-        return index !== catId;
-      });
-      newData = { ...data, ingredients: arrayW };
-      data = newData;
-
-      arrayW = arrayNewQuantities.filter(function (element, index) {
-        return index !== catId;
-      });
-      newData = { ...data, quantities: arrayW };
-      data = newData;
-
-      arrayW = arrayNewCategories.filter(function (element, index) {
-        return index !== catId;
-      });
-      newData = { ...data, categories: arrayW };
-      data = newData;
-
+      console.log("arrayNewCategories");
+      console.log(arrayNewCategories);
+      data.categories = arrayNewCategories;
+      console.log("data après splice/push handleCategories");
+      console.log(data);
       // dispatch(editNewRecipe(data));
       // console.log("après dispatch editNewRecipe");
       dispatch(createRecipe(data));
       console.log("après dispatch createRecipe");
-      validate = true;
-      handleValidationOpen(catId);
-      console.log(
-        "data après handleValidationOpen avec 3 zones trio à blanc - handleCategories"
-      );
-      console.log(data);
-    } else if (
-      !data.ingredients[catId] ||
-      !data.quantities[catId] ||
-      !data.categories[catId]
-    ) {
-      setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
-      validate = false;
-      handleValidationOpen(catId);
-      console.log(
-        "data après handleValidationOpen avec zone trio à blanc - handleCategories"
-      );
-      console.log(data);
-    } else {
-      setMessageEdit("Effectuer les modifications et valider");
-      validate = true;
-      handleValidationOpen(catId);
-      console.log(
-        "data après handleValidationOpen zones trio renseignées - handleCategories"
-      );
-      console.log(data);
-      ////////////////////////////////////////////////
-      // Contrôle du trio pour toutes les autres lignes
-      ////////////////////////////////////////////////
-      handleTrioFinal();
-      console.log("data après handleTrioFinal");
-      console.log(data);
-    }
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
+      ////////////////////////////////////////////////
+      // Contrôle du trio Ing / Qtt / Cat
+      ////////////////////////////////////////////////
+      if (
+        !data.ingredients[catId] &&
+        !data.quantities[catId] &&
+        !data.categories[catId]
+      ) {
+        setMessageEdit("Ligne effacée, valider pour confirmer");
+        console.log("arrayNewIngredients : &&&&");
+        console.log(arrayNewIngredients);
+        validate = true;
+
+        arrayW = arrayNewIngredients.filter(function (element, index) {
+          return index !== catId;
+        });
+        newData = { ...data, ingredients: arrayW };
+        data = newData;
+
+        arrayW = arrayNewQuantities.filter(function (element, index) {
+          return index !== catId;
+        });
+        newData = { ...data, quantities: arrayW };
+        data = newData;
+
+        arrayW = arrayNewCategories.filter(function (element, index) {
+          return index !== catId;
+        });
+        newData = { ...data, categories: arrayW };
+        data = newData;
+
+        // dispatch(editNewRecipe(data));
+        // console.log("après dispatch editNewRecipe");
+        dispatch(createRecipe(data));
+        console.log("après dispatch createRecipe");
+        validate = true;
+        handleValidationOpen(catId);
+        console.log(
+          "data après handleValidationOpen avec 3 zones trio à blanc - handleCategories"
+        );
+        console.log(data);
+      } else if (
+        !data.ingredients[catId] ||
+        !data.quantities[catId] ||
+        !data.categories[catId]
+      ) {
+        setMessageEdit("Saisir un ingrédient, une quantité et une catégorie");
+        validate = false;
+        handleValidationOpen(catId);
+        console.log(
+          "data après handleValidationOpen avec zone trio à blanc - handleCategories"
+        );
+        console.log(data);
+      } else {
+        setMessageEdit("Effectuer les modifications et valider");
+        validate = true;
+        handleValidationOpen(catId);
+        console.log(
+          "data après handleValidationOpen zones trio renseignées - handleCategories"
+        );
+        console.log(data);
+        ////////////////////////////////////////////////
+        // Contrôle du trio pour toutes les autres lignes
+        ////////////////////////////////////////////////
+        handleTrioFinal();
+        console.log("data après handleTrioFinal");
+        console.log(data);
+      }
+
+      arrayW = [];
+      arrayNewIngredients = [];
+      arrayNewQuantities = [];
+      arrayNewCategories = [];
+    }
   };
   /////////////////////////////
   // Stockage des étapes

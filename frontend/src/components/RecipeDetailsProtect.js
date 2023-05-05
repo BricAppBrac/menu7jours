@@ -21,6 +21,7 @@ const RecipeDetailsProtect = () => {
 
   const dispatch = useDispatch();
   dispatch(setConfirmDelete("détails-0"));
+  console.log("après dispatch setConfirmDelete");
 
   return (
     <>

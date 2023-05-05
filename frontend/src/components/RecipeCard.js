@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setChecked } from "../feature/checked.slice";
+import { createRecipe } from "../feature/recipe.slice";
 
 const RecipeCard = ({ recipe }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,8 @@ const RecipeCard = ({ recipe }) => {
     console.log("handleDetails");
     console.log(recipe.title);
     dispatch(setChecked(recipe));
+    dispatch(createRecipe(recipe));
+    console.log("après dispatch setChecked et createRecipe");
   };
 
   return (
@@ -20,8 +23,7 @@ const RecipeCard = ({ recipe }) => {
 
         <h4>Ingrédients principaux: </h4>
         <div className="ingredients-liste">
-          <p>{recipe.ingredients[0]}</p>
-
+          <p>{recipe.ingredients[0] ? recipe.ingredients[0] : ""}</p>
           <p>{recipe.ingredients[1] ? " / " + recipe.ingredients[1] : ""}</p>
           <p>{recipe.ingredients[2] ? " / " + recipe.ingredients[2] : ""}</p>
           <p>{recipe.ingredients[3] ? " / " + recipe.ingredients[3] : ""}</p>
@@ -30,7 +32,7 @@ const RecipeCard = ({ recipe }) => {
         <div className="checkbox-container">
           <div className="box-details" onClick={handleDetails}>
             <NavLink to="/pagedetailsrecipe">
-              <i className="fa-solid fa-magnifying-glass"></i>
+              <i className="fa fa-sharp fa-solid fa-circle-info"></i>
             </NavLink>
           </div>
 

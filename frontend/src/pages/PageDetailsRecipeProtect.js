@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarProtect from "../components/NavbarProtect";
 import RecipeDetailsProtect from "../components/RecipeDetailsProtect";
 import SignUp from "../components/SignUp";
 
@@ -8,7 +8,7 @@ const PageDetailsRecipeProtect = () => {
   return (
     <div className="pagedetailsrecipe">
       <div className="details-navbar">
-        <Navbar />
+        <NavbarProtect />
         <SignUp />
       </div>
       <div className="details-content">

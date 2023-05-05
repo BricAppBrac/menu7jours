@@ -19,12 +19,9 @@ const SortNavbarProtect = () => {
   /////////////////
 
   const handleTriMotCle = (motcle, motcleRef) => {
-    console.log("Tri sur Mot-Clé : ");
-    console.log(motcle);
     arrayNew = [...sortlast];
     arrayNew[2] = motcle;
-    console.log("arrayNew avant choix Mot-Clé : ");
-    console.log(arrayNew);
+
     if (motcle === null || motcle.length === 0 || motcle === undefined) {
       motcleRef.current.className = "";
     } else {
@@ -32,45 +29,36 @@ const SortNavbarProtect = () => {
     }
 
     dispatch(setSort(arrayNew));
-    console.log("sortSelected après choix Mot-Clé : ");
-    console.log(arrayNew);
+
     arrayNew = [];
   };
 
   const handleTriCroissant = (croissantRef) => {
-    console.log("Tri croissant");
     arrayNew = [...sortlast];
     arrayNew[0] = "Croissant";
-    console.log("arrayNew avant choix Croissant : ");
-    console.log(arrayNew);
+
     croissantRef.current.className = "sortnav-active";
     decroissantRef.current.className = "";
     dispatch(setSort(arrayNew));
-    console.log("sortSelected après choix Croissant : ");
-    console.log(arrayNew);
+
     arrayNew = [];
   };
 
   const handleTriDecroissant = (decroissantRef) => {
-    console.log("Tri décroissant");
     arrayNew = [...sortlast];
     arrayNew[0] = "Decroissant";
-    console.log("arrayNew avant choix Décroissant : ");
-    console.log(arrayNew);
+
     decroissantRef.current.className = "sortnav-active";
     croissantRef.current.className = "";
     dispatch(setSort(arrayNew));
-    console.log("sortSelected après choix Décroissant : ");
-    console.log(arrayNew);
+
     arrayNew = [];
   };
 
   const handleTriSaison = (season, saisonRef) => {
-    console.log("Tri saison : " + season);
     arrayNew = [...sortlast];
     arrayNew[1] = season;
-    console.log("arrayNew avant choix Saison : ");
-    console.log(arrayNew);
+
     if (season !== "saison") {
       saisonRef.current.className = "sortnav-active";
     } else {
@@ -78,8 +66,7 @@ const SortNavbarProtect = () => {
     }
 
     dispatch(setSort(arrayNew));
-    console.log("sortSelected après choix Saison : ");
-    console.log(arrayNew);
+
     arrayNew = [];
   };
 
@@ -132,6 +119,7 @@ const SortNavbarProtect = () => {
               <option value="été">été</option>
               <option value="automne">automne</option>
               <option value="hiver">hiver</option>
+              <option value="toutes">toutes</option>
             </select>
           </li>
         </ul>
@@ -143,7 +131,8 @@ const SortNavbarProtect = () => {
             className={(nav) => (nav.isActive ? "nav-active" : "")}
           >
             <i className="fa-solid fa-chevron-right"></i>
-            Nouvelle Recette
+            Nouvelle Recette{" "}
+            <i id="plusicon" className="fa-solid fa-square-plus"></i>
           </NavLink>
         </p>
       </div>

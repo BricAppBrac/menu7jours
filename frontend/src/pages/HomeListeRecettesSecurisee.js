@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarProtect from "../components/NavbarProtect";
 import ListeRecettesProtect from "../components/ListeRecettesProtect";
 import SignUp from "../components/SignUp";
 
@@ -10,7 +10,7 @@ const HomeListeRecettesSecurisee = () => {
   return (
     <div className="homelisterecettes">
       <div className="nav-container">
-        <Navbar />
+        <NavbarProtect />
         <SignUp />
       </div>
       <div className="homeliste-content">

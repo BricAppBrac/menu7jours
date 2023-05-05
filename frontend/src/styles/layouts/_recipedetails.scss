@@ -206,16 +206,17 @@
 
         padding: 0;
 
+      
         .box-delete,
         .box-details,
         .box-modif-back {
-          height: 30px;
+          // height: 30px;
           margin: 12px 2px;
 
           button {
             font-weight: 700;
-            margin: 3px;
-            padding: 6px 12px;
+            margin: 6px;
+            padding: 6px 6px;
             font-size: 1.4rem;
             border-radius: 5px;
             // display: block;
@@ -239,7 +240,7 @@
               align-items: center;
               color: $green2;
              
-              padding: px;
+              
               text-decoration: none;
 
               &:hover {
@@ -268,7 +269,28 @@
 
           //}
         }
+
+
       }
+      .box-message-conf {
+        
+      .conf-suppr {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        button {
+          
+          // border: none;
+          // background: none;
+          margin: 0 10px;
+
+          i {
+            color: red;
+            font-size: 1.8rem;
+          }
+        }
+      }}
 
       // }
     }

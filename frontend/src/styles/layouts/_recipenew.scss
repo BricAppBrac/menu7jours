@@ -191,6 +191,24 @@
         padding: 5px;
         font-size: 1.2rem;
         border-radius: 20px;
+
+        i {
+          font-size: 1.4rem;
+          color: $brown1;
+          padding: 2px;
+
+          &:hover {
+            color: wheat;
+  
+          }
+        }
+
+        &:hover {
+          letter-spacing: 2.5px;
+          background: $brown1;
+          color: wheat;
+
+        }
       }
     }
   }

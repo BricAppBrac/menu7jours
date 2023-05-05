@@ -3,6 +3,7 @@ import RecipeCard from "../components/RecipeCard";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getListe } from "../feature/liste.slice";
+import { setSort } from "../feature/sort.slice";
 
 const ListeRecettes = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ const ListeRecettes = () => {
   useEffect(() => {
     axios
       .get("http://localhost:5000/recipe/")
-      .then((res) => dispatch(getListe(res.data)));
+      .then((res) => dispatch(getListe(res.data)))
+      .then(() => dispatch(setSort(["Croissant", null, null])));
   }, []);
 
   return (
