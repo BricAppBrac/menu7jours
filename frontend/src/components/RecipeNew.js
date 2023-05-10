@@ -38,6 +38,12 @@ const RecipeNew = () => {
 
   let arrayNew = [];
   let arrayW = [];
+  let arrayNewIngredients = [];
+  let arrayNewQuantities = [];
+  let arrayNewCategories = [];
+  let arrayNewIngredientsStockage = [];
+  let arrayNewQuantitiesStockage = [];
+  let arrayNewCategoriesStockage = [];
 
   //////////////////////////////////////////////////////////////////////////////////
   // Gestion des inputs
@@ -343,78 +349,158 @@ const RecipeNew = () => {
   };
 
   /////////////////////////////////////////////////////////////////////////////////
-  // --- Création dans le store et la BDD ---
-  /////////////////////////////////////////////////////////////////////////////////
-
-  const handleNew = () => {
-    console.log("handleNew");
-
-    // mettre à jour la BDD MongoDB et récupérer l'ID généré
-
-    console.log("affichage AVANT BDD :");
-
-    // Création d'une recette :
-
-    axios.post("http://localhost:5000/recipe/complete", {
-      title: newTitle,
-      author: newAuthor,
-      seasons: newSeasons,
-      ingredients: newIngredients,
-      quantities: newQuantities,
-      categories: newCategories,
-      steps: newSteps,
-    });
-
-    // // Réinitialiser le State de newRecipe
-    setNewTitle("");
-    setNewAuthor("Melissande");
-    setNewSeasons([]);
-    setNewIngredients([]);
-    setNewQuantities([]);
-    setNewCategories([]);
-    setNewSteps([]);
-    setMessageNew(
-      "Création effectuée, vous pouvez saisir une nouvelle recette"
-    );
-    resetForm();
-    // dispatch(deleteNewRecipe());
-  };
-
-  /////////////////////////////////////////////////////////////////////////////////
   // --- Gestion du Submit pour la création dans le store et la BDD ---
   /////////////////////////////////////////////////////////////////////////////////
   const handleSubmitNew = (e) => {
     e.preventDefault();
     console.log("début SUBMIT");
-    console.log("new Title / Author");
-    console.log(newTitle);
-    console.log(newAuthor);
-    console.log("new Ing / Qtt / Cat / Stp");
-    console.log(newIngredients);
-    console.log(newQuantities);
-    console.log(newCategories);
-    console.log(newSteps);
-    console.log("data ********************");
-    console.log(data);
 
-    // Création d'une nouvelle recette dans le store
-    console.log("Création d'une nouvelle recette dans le store");
-    setMessageNew("Saisir les informations et valider");
+    // setMessageNew("Saisir les informations et valider");
 
-    handleNew();
+    // Elimination du cas ou Valider a été pressé mais pas de saisie
 
-    // const data = {
-    //   title: newTitle,
-    //   author: newAuthor,
-    //   seasons: newSeasons,
-    //   ingredients: newIngredients,
-    //   quantities: newQuantities,
-    //   categories: newCategories,
-    //   steps: newSteps,
-    //   _id: Date.now(),
-    // };
+    if (newTitle !== "") {
+      // Traitement normal
+
+      // Suppression des lignes blanches dans steps
+      console.log("suppression des lignes blanches : steps");
+      arrayW = newSteps;
+      arrayNew = arrayW.filter((step) => {
+        if (step === "" || step === undefined) {
+          console.log("step non renseigné");
+        } else {
+          console.log("step renseigné : " + step);
+          return step;
+        }
+      });
+      console.log("arrayNew :");
+      console.log(arrayNew);
+      setNewSteps(arrayNew);
+      console.log("newSteps :");
+      console.log(newSteps);
+
+      /////////////////////////
+      // Suppression des lignes blanches Trio
+      ///////
+      console.log("suppression des lignes blanches : TRIO");
+
+      arrayNewIngredientsStockage = newIngredients;
+      arrayNewQuantitiesStockage = newQuantities;
+      arrayNewCategoriesStockage = newCategories;
+
+      // for (let i = 0; i < arrayNewIngredientsStockage.length; i++) {
+
+      console.log("arrayNewIngredientsStockage");
+      console.log(arrayNewIngredientsStockage);
+      console.log("arrayNewQuantitiesStockage");
+      console.log(arrayNewQuantitiesStockage);
+      console.log("arrayNewCategoriesStockage");
+      console.log(arrayNewCategoriesStockage);
+
+      arrayNewIngredients = arrayNewIngredientsStockage.filter(function (
+        element,
+        index
+      ) {
+        if (
+          arrayNewIngredientsStockage[index] === "" &&
+          arrayNewQuantitiesStockage[index] === "" &&
+          arrayNewCategoriesStockage[index] === ""
+        ) {
+          console.log("ing trio à supprimer : " + element);
+        } else {
+          console.log("ing trio à conserver : " + element);
+          return element;
+        }
+      });
+
+      arrayNewQuantities = arrayNewQuantitiesStockage.filter(function (
+        element,
+        index
+      ) {
+        if (
+          arrayNewIngredientsStockage[index] === "" &&
+          arrayNewQuantitiesStockage[index] === "" &&
+          arrayNewCategoriesStockage[index] === ""
+        ) {
+          console.log("qtt trio à supprimer : " + element);
+        } else {
+          console.log("qtt trio à conserver : " + element);
+          return element;
+        }
+      });
+
+      arrayNewCategories = arrayNewCategoriesStockage.filter(function (
+        element,
+        index
+      ) {
+        if (
+          arrayNewIngredientsStockage[index] === "" &&
+          arrayNewQuantitiesStockage[index] === "" &&
+          arrayNewCategoriesStockage[index] === ""
+        ) {
+          console.log("cat trio à supprimer : " + element);
+        } else {
+          console.log("cat trio à conserver : " + element);
+          return element;
+        }
+      });
+      // }
+      console.log("arrayNewIngredients :");
+      console.log(arrayNewIngredients);
+      console.log("arrayNewQuantities :");
+      console.log(arrayNewQuantities);
+      console.log("arrayNewCategories :");
+      console.log(arrayNewCategories);
+
+      //////////////////
+
+      // mettre à jour la BDD MongoDB et récupérer l'ID généré
+
+      // Création d'une recette :
+
+      axios.post("http://localhost:5000/recipe/complete", {
+        title: newTitle,
+        author: newAuthor,
+        seasons: newSeasons,
+        // ingredients: newIngredients,
+        // quantities: newQuantities,
+        // categories: newCategories,
+        ingredients: arrayNewIngredients,
+        quantities: arrayNewQuantities,
+        categories: arrayNewCategories,
+        // steps: newSteps,
+        steps: arrayNew,
+      });
+
+      // // Réinitialiser le State de newRecipe
+      setNewTitle("");
+      setNewAuthor("Melissande");
+      setNewSeasons([]);
+      setNewIngredients([]);
+      setNewQuantities([]);
+      setNewCategories([]);
+      setNewSteps([]);
+      setMessageNew(
+        "Création effectuée, vous pouvez saisir une nouvelle recette"
+      );
+      resetForm();
+      // dispatch(deleteNewRecipe());
+
+      // const data = {
+      //   title: newTitle,
+      //   author: newAuthor,
+      //   seasons: newSeasons,
+      //   ingredients: newIngredients,
+      //   quantities: newQuantities,
+      //   categories: newCategories,
+      //   steps: newSteps,
+      //   _id: Date.now(),
+      // };
+    } else {
+      setMessageNew("Saisir les informations et valider");
+      console.log("Attention, Validation sans saisie");
+    }
   };
-
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
 

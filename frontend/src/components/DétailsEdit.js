@@ -34,9 +34,14 @@ const DétailsEdit = () => {
 
   let arrayNew = [];
   let arrayW = [];
-  let arrayNewIngredients = [];
-  let arrayNewQuantities = [];
-  let arrayNewCategories = [];
+  let arrayNewIngredients = newRecipeData.ingredients;
+  let arrayNewQuantities = newRecipeData.quantities;
+  let arrayNewCategories = newRecipeData.categories;
+  let arrayNewSteps = newRecipeData.steps;
+
+  let arrayNewIngredientsStockage = [];
+  let arrayNewQuantitiesStockage = [];
+  let arrayNewCategoriesStockage = [];
 
   let data = {};
   let newData = {};
@@ -94,7 +99,7 @@ const DétailsEdit = () => {
     if (document.getElementById(newSeas).checked == true) {
       console.log("checked");
       // arrayNew = editSeasons;
-
+      arrayW = [];
       arrayNew = data.seasons;
       arrayW.push(newSeas);
       arrayNew = [...arrayNew, ...arrayW];
@@ -116,8 +121,8 @@ const DétailsEdit = () => {
     // console.log("après dispatch editNewRecipe");
     dispatch(createRecipe(data));
     console.log("après dispatch createRecipe");
-    arrayNew = [];
-    arrayW = [];
+    // arrayNew = [];
+    // arrayW = [];
   };
   /////////////////////////////
   // Stockage des ingrédients
@@ -154,13 +159,31 @@ const DétailsEdit = () => {
     if (ingId > newRecipeData.ingredients.length) {
       console.log("ingId > newRecipeData.ingredients.length");
       for (let i = newRecipeData.ingredients.length; i < ingId; i++) {
-        arrayW = arrayNewIngredients.splice(i, 1, "");
-        data.ingredients = arrayNewIngredients;
+        arrayW = [];
+
+        arrayW.push("");
+
+        arrayNewIngredients = [...arrayNewIngredients, ...arrayW];
+        arrayNewQuantities = [...arrayNewQuantities, ...arrayW];
+        arrayNewCategories = [...arrayNewCategories, ...arrayW];
+
+        newData = {
+          ...data,
+          ingredients: arrayNewIngredients,
+          quantities: arrayNewQuantities,
+          categories: arrayNewCategories,
+        };
+        data = newData;
+
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
     }
-
+    console.log(data);
+    console.log("arrayNew :");
+    console.log(arrayNewIngredients);
+    console.log(arrayNewQuantities);
+    console.log(arrayNewCategories);
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
     if (
       checkedRecipe.ingredients[ingId] ||
@@ -198,6 +221,7 @@ const DétailsEdit = () => {
       }
       // caractères suivants
       else {
+        arrayW = [];
         console.log("handleIngredients - nouveau trio - caractères suivants");
         arrayW = arrayNewIngredients.splice(ingId, 1, newVal);
       }
@@ -278,10 +302,10 @@ const DétailsEdit = () => {
     console.log("data après handleTrioFinal");
     console.log(data);
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
+    // arrayW = [];
+    // arrayNewIngredients = [];
+    // arrayNewQuantities = [];
+    // arrayNewCategories = [];
     // }
   };
   /////////////////////////////
@@ -321,13 +345,29 @@ const DétailsEdit = () => {
     if (qttId > newRecipeData.quantities.length) {
       console.log("qttId > newRecipeData.quantities.length");
       for (let i = newRecipeData.quantities.length; i < qttId; i++) {
-        arrayW = arrayNewQuantities.splice(i, 1, "");
-        data.quantities = arrayNewQuantities;
+        arrayW = [];
+        arrayW.push("");
+
+        arrayNewIngredients = [...arrayNewIngredients, ...arrayW];
+        arrayNewQuantities = [...arrayNewQuantities, ...arrayW];
+        arrayNewCategories = [...arrayNewCategories, ...arrayW];
+
+        newData = {
+          ...data,
+          ingredients: arrayNewIngredients,
+          quantities: arrayNewQuantities,
+          categories: arrayNewCategories,
+        };
+        data = newData;
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
     }
-
+    console.log(data);
+    console.log("arrayNew :");
+    console.log(arrayNewIngredients);
+    console.log(arrayNewQuantities);
+    console.log(arrayNewCategories);
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
     if (
       checkedRecipe.ingredients[qttId] ||
@@ -366,6 +406,7 @@ const DétailsEdit = () => {
       }
       // caractères suivants
       else {
+        arrayW = [];
         console.log("handleQuantities - nouveau trio - caractères suivants");
         arrayW = arrayNewQuantities.splice(qttId, 1, newQtt);
       }
@@ -444,10 +485,10 @@ const DétailsEdit = () => {
       console.log(data);
     }
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
+    // arrayW = [];
+    // arrayNewIngredients = [];
+    // arrayNewQuantities = [];
+    // arrayNewCategories = [];
   };
   /////////////////////////////
   // Stockage des catégories
@@ -481,13 +522,30 @@ const DétailsEdit = () => {
     if (catId > newRecipeData.categories.length) {
       console.log("catId > newRecipeData.categories.length");
       for (let i = newRecipeData.categories.length; i < catId; i++) {
-        arrayW = arrayNewCategories.splice(i, 1, "");
-        data.categories = arrayNewCategories;
+        arrayW = [];
+        arrayW.push("");
+
+        arrayNewIngredients = [...arrayNewIngredients, ...arrayW];
+        arrayNewQuantities = [...arrayNewQuantities, ...arrayW];
+        arrayNewCategories = [...arrayNewCategories, ...arrayW];
+
+        newData = {
+          ...data,
+          ingredients: arrayNewIngredients,
+          quantities: arrayNewQuantities,
+          categories: arrayNewCategories,
+        };
+        data = newData;
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
     }
+    console.log(data);
 
+    console.log("arrayNew :");
+    console.log(arrayNewIngredients);
+    console.log(arrayNewQuantities);
+    console.log(arrayNewCategories);
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
     if (
       checkedRecipe.ingredients[catId] ||
@@ -529,6 +587,7 @@ const DétailsEdit = () => {
       }
       // caractères suivants
       else {
+        arrayW = [];
         console.log("handleCategories - nouveau trio - caractères suivants");
         arrayW = arrayNewCategories.splice(catId, 1, newCat);
       }
@@ -611,10 +670,10 @@ const DétailsEdit = () => {
       console.log(data);
     }
 
-    arrayW = [];
-    arrayNewIngredients = [];
-    arrayNewQuantities = [];
-    arrayNewCategories = [];
+    // arrayW = [];
+    // arrayNewIngredients = [];
+    // arrayNewQuantities = [];
+    // arrayNewCategories = [];
   };
   /////////////////////////////
   // Stockage des étapes
@@ -637,23 +696,27 @@ const DétailsEdit = () => {
     };
 
     arrayNew = [...data.steps];
-    console.log("arrayNew avant test");
+    console.log("arrayNew steps avant lignes blanches");
     console.log(arrayNew);
-
-    // const arrayId = checkedRecipe.steps.length;
 
     // Gestion des lignes blanches : si stpId est > array.length, alimenter par du blanc
 
     if (stpId > newRecipeData.steps.length) {
       console.log("stpId > newRecipeData.steps.length");
       for (let i = newRecipeData.steps.length; i < stpId; i++) {
-        arrayW = arrayNew.splice(i, 1, "");
-        // data.steps.splice(i, 1, "");
-        data.steps = arrayNew;
+        arrayW = [];
+
+        arrayW.push("");
+        arrayNew = [...arrayNew, ...arrayW];
+
+        newData = { ...data, steps: arrayNew };
+        data = newData;
+
         dispatch(createRecipe(data));
         console.log("après dispatch createRecipe ligne vide : " + i);
       }
     }
+    console.log(data);
 
     // Si cette ligne de la recette sélectionnée était déjà renseignée, on remplace la zone concernée
     if (checkedRecipe.steps[stpId]) {
@@ -682,17 +745,16 @@ const DétailsEdit = () => {
         console.log(arrayNew);
       }
     }
+
     newData = { ...data, steps: arrayNew };
     data = newData;
     console.log("data après splice/push handleSteps");
     console.log(data);
-    // dispatch(editNewRecipe(data));
-    // console.log("après dispatch editNewRecipe");
     dispatch(createRecipe(data));
     console.log("après dispatch createRecipe");
 
-    arrayW = [];
-    arrayNew = [];
+    // arrayW = [];
+    // arrayNew = [];
   };
 
   ////////////////////////////////////
@@ -716,9 +778,7 @@ const DétailsEdit = () => {
           "whitesmoke";
         document.getElementById("category" + indexRef).style.color =
           "rgb(37, 21, 11)";
-        console.log("back white : ");
-        console.log("data");
-        console.log(data);
+        console.log("back white : " + indexRef);
         resolve(); // la promesse est résolue si la validation est correcte
       } else {
         document.getElementById("form-validation").disabled = "disabled";
@@ -736,10 +796,7 @@ const DétailsEdit = () => {
           "#d65630";
         document.getElementById("category" + indexRef).style.color =
           "rgb(206, 228, 187)";
-        console.log("back orange : ");
-        console.log("data");
-        console.log(data);
-
+        console.log("back orange : " + indexRef);
         resolve(); // la promesse est résolue si la validation est correcte
         // reject(new Error("Validation failed")); // la promesse est rejetée si la validation a échoué
       }
@@ -757,16 +814,29 @@ const DétailsEdit = () => {
     //////////////////////////////////////////////
     for (let i = 0; i < 20; i++) {
       if (!data.ingredients[i] && !data.quantities[i] && !data.categories[i]) {
-        console.log("ligne vide : " + i);
+        if (i < data.ingredients.length) {
+          console.log("ligne à supprimer : " + i);
+        } else {
+          console.log("ligne vide : " + i);
+          // ligne renseignée : stockage
+          // console.log("stockage ligne complète trio");
+          // arrayNewIngredientsStockage.push(data.ingredients[i]);
+          // arrayNewQuantitiesStockage.push(data.quantities[i]);
+          // arrayNewCategoriesStockage.push(data.categories[i]);
+        }
       } else {
+        validate = true;
+        // ligne renseignée : stockage
+        // console.log("stockage ligne complète trio");
+        // arrayNewIngredientsStockage.push(data.ingredients[i]);
+        // arrayNewQuantitiesStockage.push(data.quantities[i]);
+        // arrayNewCategoriesStockage.push(data.categories[i]);
         // Cas Ingrédient non renseigné, et l'un des 2 autres renseigné
-        console.log("ligne renseignée : " + i);
         if (!data.ingredients[i]) {
-          console.log("ingrédient non renseigné");
+          console.log("ingrédient non renseigné : " + i);
           setMessageEdit(
             "*Saisir un ingrédient, une quantité et une catégorie"
           );
-
           validate = false;
           handleValidationOpen(i);
 
@@ -774,7 +844,7 @@ const DétailsEdit = () => {
         }
         // Cas Quantité non renseignée, et l'un des 2 autres renseigné
         if (!data.quantities[i]) {
-          console.log("quantité non renseignée");
+          console.log("quantité non renseignée: " + i);
           setMessageEdit(
             "**Saisir un ingrédient, une quantité et une catégorie"
           );
@@ -785,7 +855,7 @@ const DétailsEdit = () => {
         }
         // Cas Catégorie non renseignée, et l'un des 2 autres renseigné
         if (!data.categories[i]) {
-          console.log("catégorie non renseignée");
+          console.log("catégorie non renseignée: " + i);
           setMessageEdit(
             "***Saisir un ingrédient, une quantité et une catégorie"
           );
@@ -795,8 +865,8 @@ const DétailsEdit = () => {
         }
       }
     }
-    console.log("data après boucle");
-    console.log(data);
+    // Cas des 3 zones renseignées, on alimente le tableau qui ne prend pas les lignes blanches en compte
+
     //////////////////////////////////////////
     // Cas toutes les zones sont renseignées
     //////////////////////////////////////////
@@ -804,11 +874,25 @@ const DétailsEdit = () => {
       console.log("toutes les lignes sont renseignées correctement");
       setMessageEdit("Effectuer les modifications et valider");
       console.log("mise à blanc de toutes les zones");
+      // console.log("array Stockage");
+      // console.log(arrayNewIngredientsStockage);
+      // console.log(arrayNewQuantitiesStockage);
+      // console.log(arrayNewCategoriesStockage);
+
+      // newData = {
+      //   ...data,
+      //   ingredients: arrayNewIngredientsStockage,
+      //   quantities: arrayNewQuantitiesStockage,
+      //   categories: arrayNewCategoriesStockage,
+      // };
+      // data = newData;
+      // dispatch(createRecipe(data));
+
       for (let i = 0; i < 20; i++) {
         handleValidationOpen(i);
       }
-      console.log("data après boucle 2");
-      console.log(data);
+
+      //////////////////////
     }
   }
 
@@ -824,16 +908,114 @@ const DétailsEdit = () => {
     e.preventDefault();
     console.log("début SUBMIT EDIT");
 
+    // Suppression des lignes blanches dans steps
+    console.log("suppression des lignes blanches : steps");
+    arrayW = newRecipeData.steps;
+    arrayNewSteps = arrayW.filter((step) => {
+      if (step != "") {
+        console.log("step renseigné : " + step);
+        return step;
+      } else {
+        console.log("step non renseigné");
+      }
+    });
+    console.log("arrayNewSteps :");
+    console.log(arrayNewSteps);
+
+    /////////////////////////
+    // Suppression des lignes blanches Trio
+    ///////
+    console.log("suppression des lignes blanches : TRIO");
+
+    arrayNewIngredientsStockage = newRecipeData.ingredients;
+    arrayNewQuantitiesStockage = newRecipeData.quantities;
+    arrayNewCategoriesStockage = newRecipeData.categories;
+
+    // for (let i = 0; i < arrayNewIngredientsStockage.length; i++) {
+
+    console.log("arrayNewIngredientsStockage");
+    console.log(arrayNewIngredientsStockage);
+    console.log("arrayNewQuantitiesStockage");
+    console.log(arrayNewQuantitiesStockage);
+    console.log("arrayNewCategoriesStockage");
+    console.log(arrayNewCategoriesStockage);
+
+    arrayNewIngredients = arrayNewIngredientsStockage.filter(function (
+      element,
+      index
+    ) {
+      if (
+        arrayNewIngredientsStockage[index] === "" &&
+        arrayNewQuantitiesStockage[index] === "" &&
+        arrayNewCategoriesStockage[index] === ""
+      ) {
+        console.log("ing trio à supprimer : " + element);
+      } else {
+        console.log("ing trio à conserver : " + element);
+        return element;
+      }
+    });
+
+    arrayNewQuantities = arrayNewQuantitiesStockage.filter(function (
+      element,
+      index
+    ) {
+      if (
+        arrayNewIngredientsStockage[index] === "" &&
+        arrayNewQuantitiesStockage[index] === "" &&
+        arrayNewCategoriesStockage[index] === ""
+      ) {
+        console.log("qtt trio à supprimer : " + element);
+      } else {
+        console.log("qtt trio à conserver : " + element);
+        return element;
+      }
+    });
+
+    arrayNewCategories = arrayNewCategoriesStockage.filter(function (
+      element,
+      index
+    ) {
+      if (
+        arrayNewIngredientsStockage[index] === "" &&
+        arrayNewQuantitiesStockage[index] === "" &&
+        arrayNewCategoriesStockage[index] === ""
+      ) {
+        console.log("cat trio à supprimer : " + element);
+      } else {
+        console.log("cat trio à conserver : " + element);
+        return element;
+      }
+    });
+    // }
+    console.log("arrayNewIngredients :");
+    console.log(arrayNewIngredients);
+    console.log("arrayNewQuantities :");
+    console.log(arrayNewQuantities);
+    console.log("arrayNewCategories :");
+    console.log(arrayNewCategories);
+
+    //////////////////
+
     data = {
       title: newRecipeData.title,
       author: "Melissande",
       seasons: newRecipeData.seasons,
-      ingredients: newRecipeData.ingredients,
-      quantities: newRecipeData.quantities,
-      categories: newRecipeData.categories,
-      steps: newRecipeData.steps,
+      // ingredients: newRecipeData.ingredients,
+      // quantities: newRecipeData.quantities,
+      // categories: newRecipeData.categories,
+      ingredients: arrayNewIngredients,
+      quantities: arrayNewQuantities,
+      categories: arrayNewCategories,
+      // steps: newRecipeData.steps,
+      steps: arrayNewSteps,
       _id: newRecipeData._id,
     };
+
+    dispatch(createRecipe(data));
+    console.log("dispatch createRecipe");
+    console.log("data submit");
+    console.log(data);
 
     //---------------------------------------------
     //Mise à jour d'une recette dans la BDD:
@@ -843,10 +1025,14 @@ const DétailsEdit = () => {
         title: data.title,
         author: data.author,
         seasons: data.seasons,
-        ingredients: data.ingredients,
-        quantities: data.quantities,
-        categories: data.categories,
-        steps: data.steps,
+        // ingredients: data.ingredients,
+        // quantities: data.quantities,
+        // categories: data.categories,
+        ingredients: arrayNewIngredients,
+        quantities: arrayNewQuantities,
+        categories: arrayNewCategories,
+        // steps: data.steps,
+        steps: arrayNewSteps,
       })
       .then(() => {
         // MISE A JOUR REUSSIE
@@ -858,7 +1044,7 @@ const DétailsEdit = () => {
         console.error(error);
       });
     // Si on est là, c'est que le formulaire a été validé
-    dispatch(setChecked(newRecipeData));
+    dispatch(setChecked(data));
   };
 
   const handleBack = () => {
