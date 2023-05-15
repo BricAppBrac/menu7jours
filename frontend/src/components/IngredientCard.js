@@ -67,6 +67,7 @@ const IngredientCard = (props) => {
             <option value="Frais">Frais</option>
             <option value="Epicerie">Epicerie</option>
             <option value="Fruits/Légumes">Fruits/Légumes</option>
+            <option value="Plantes sauvages">Plantes sauvages</option>
           </select>
         </div>
       </div>

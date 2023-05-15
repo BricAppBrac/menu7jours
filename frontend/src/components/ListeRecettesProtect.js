@@ -59,14 +59,6 @@ const ListeRecettesProtect = () => {
           ///////////////////////////////
           .filter((recipe) => {
             if (sortSelected[2]) {
-              // if (
-              //   recipe.title
-              //     .toUpperCase()
-              //     .includes(sortSelected[2].toUpperCase()) ||
-              //   recipe.ingredients.some((ingr) =>
-              //     ingr.toUpperCase().includes(sortSelected[2].toUpperCase())
-              //   )
-              // ) {
               if (
                 recipe.title
                   .normalize("NFD")

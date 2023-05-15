@@ -1,7 +1,8 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import MenuCard from "../components/MenuCard";
+import MenuPref from "../components/MenuPref";
+import MenuPrefNavbarProtect from "../components/MenuPrefNavbarProtect";
 
 const HomeMenu = () => {
   return (
@@ -12,10 +13,9 @@ const HomeMenu = () => {
       <div className="homemenu-content">
         <div className="homemenu-text">
           <h1>Menu de la semaine</h1>
-          <h2>Préférences | Modifier | Changer | Valider </h2>
-
+          <MenuPrefNavbarProtect />
           <div className="menucard-container">
-            <MenuCard />
+            <MenuPref />
           </div>
         </div>
       </div>

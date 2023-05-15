@@ -1,12 +1,13 @@
 import React from "react";
 
-const MenuCard = () => {
+const MenuCard = (props) => {
   return (
-    <div className="menu-card">
-      <h3>Jour i</h3>
+    <div className="compo-card">
+      <div className="compo-card-content">
+        <h3>Repas du {props.compo[2]}</h3>
 
-      <p>meal 1</p>
-      <p>meal 2</p>
+        <p>{props.compo[4] ? "meal1 et meal2" : "meal1"}</p>
+      </div>
     </div>
   );
 };
