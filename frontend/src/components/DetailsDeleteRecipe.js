@@ -82,12 +82,12 @@ const DetailsDeleteRecipe = (props) => {
         {origin === "détails-1" ? (
           ""
         ) : (
-          // <button onClick={handleBack}>
+          // <button onClick={() => handleBack()}>
           //   <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
           //     <i className="fa-solid fa-rotate-left"></i>
           //   </NavLink>
           // </button>
-          <button onClick={handleEdit}>
+          <button onClick={() => handleEdit()}>
             <NavLink to="/PrivateRoute/pagedetailsedit">
               <i className="fa-solid fa-file-pen"></i>
             </NavLink>
@@ -101,12 +101,12 @@ const DetailsDeleteRecipe = (props) => {
               <p>{message}</p>
             </div>
             <div className="conf-suppr">
-              <button onClick={handleConfirm}>
+              <button onClick={() => handleConfirm()}>
                 <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
                   <i className="fa-solid fa-thumbs-up"></i>
                 </NavLink>
               </button>
-              <button onClick={handleCancel}>
+              <button onClick={() => handleCancel()}>
                 <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
                   <i className="fa-solid fa-thumbs-down"></i>
                 </NavLink>
@@ -114,14 +114,14 @@ const DetailsDeleteRecipe = (props) => {
             </div>
           </div>
         ) : (
-          <button onClick={handleConfirm}>
+          <button onClick={() => handleConfirm()}>
             <i className="fa-solid fa-trash"></i>
           </button>
         )}
       </div>
 
       {/* //////////////////////////////////////*/}
-      {/* <div className="box-delete" onClick={handleConfirm}>
+      {/* <div className="box-delete" onClick={() => handleConfirm()}>
 
 
         {origin == "détails-1" ? (
@@ -138,13 +138,13 @@ const DetailsDeleteRecipe = (props) => {
       </div>
       <div className="box-modif-back">
         {origin === "détails-1" ? (
-          <button onClick={handleBack}>
+          <button onClick={() => handleBack()}>
             <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
               <i className="fa-solid fa-rotate-left"></i>
             </NavLink>
           </button>
         ) : (
-          <button onClick={handleEdit}>
+          <button onClick={() => handleEdit()}>
             <NavLink to="/PrivateRoute/pagedetailsedit">
               <i className="fa-solid fa-file-pen"></i>
             </NavLink>

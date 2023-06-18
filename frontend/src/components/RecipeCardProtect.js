@@ -22,7 +22,7 @@ const RecipeCardProtect = ({ recipe }) => {
           <p>{recipe.ingredients[4] ? " / " + recipe.ingredients[4] : ""}</p>
         </div>
         <div className="checkbox-container">
-          {/* <div className="box-details" onClick={handleDetails}>
+          {/* <div className="box-details" onClick={() => handleDetails()}>
             <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
               <i className="fa fa-sharp fa-solid fa-circle-info"></i>
             </NavLink>

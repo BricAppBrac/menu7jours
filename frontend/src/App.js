@@ -7,6 +7,8 @@ import HomeListeRecettesSecurisee from "./pages/HomeListeRecettesSecurisee";
 import PageDetailsRecipe from "./pages/PageDetailsRecipe";
 import PageDetailsEdit from "./pages/PageDetailsEdit";
 import PageDetailsRecipeProtect from "./pages/PageDetailsRecipeProtect";
+import MenusValides from "./pages/MenusValides";
+import PageListeCourses from "./pages/PageListeCourses";
 
 const App = () => {
   return (
@@ -28,6 +30,8 @@ const App = () => {
           path="/PrivateRoute/pagedetailsrecipeprotect"
           element={<PageDetailsRecipeProtect />}
         />
+        <Route path="/menusvalides" element={<MenusValides />} />
+        <Route path="/listecourses" element={<PageListeCourses />} />
       </Routes>
     </BrowserRouter>
   );

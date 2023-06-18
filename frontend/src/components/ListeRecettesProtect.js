@@ -60,6 +60,8 @@ const ListeRecettesProtect = () => {
           .filter((recipe) => {
             if (sortSelected[2]) {
               if (
+                // normalisation du mot-clé et du titre pour comparer
+                // sans les accents
                 recipe.title
                   .normalize("NFD")
                   .replace(/\p{Diacritic}/gu, "")

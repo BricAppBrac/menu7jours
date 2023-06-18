@@ -30,7 +30,7 @@ const NavbarProtect = () => {
               <NavLink
                 to="/PrivateRoute/HomeListeRecettesProtect"
                 className={(nav) => (nav.isActive ? "nav-active" : "")}
-                onClick={handleInit}
+                onClick={() => handleInit()}
               >
                 Liste des Recettes
               </NavLink>

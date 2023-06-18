@@ -17,6 +17,7 @@ export const menurecipesSlice = createSlice({
         if (recipe._id === payload[1]) {
           return {
             ...recipe,
+            _id: payload[0]._id,
             title: payload[0].title,
             author: payload[0].author,
             seasons: payload[0].seasons,

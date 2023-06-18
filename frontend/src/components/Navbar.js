@@ -30,7 +30,7 @@ const Navbar = () => {
               <NavLink
                 to="/"
                 className={(nav) => (nav.isActive ? "nav-active" : "")}
-                onClick={handleInit}
+                onClick={() => handleInit()}
               >
                 Liste des Recettes
               </NavLink>

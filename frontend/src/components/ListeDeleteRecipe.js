@@ -63,7 +63,7 @@ const ListeDeleteRecipe = (props) => {
         {origin === "liste-1" ? (
           ""
         ) : (
-          <div className="box-details" onClick={handleDetails}>
+          <div className="box-details" onClick={() => handleDetails()}>
             <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
               <i className="fa fa-sharp fa-solid fa-circle-info"></i>
             </NavLink>
@@ -77,12 +77,12 @@ const ListeDeleteRecipe = (props) => {
               <p>{message}</p>
             </div>
             <div className="conf-suppr">
-              <button onClick={handleConfirm}>
+              <button onClick={() => handleConfirm()}>
                 <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
                   <i className="fa-solid fa-thumbs-up"></i>
                 </NavLink>
               </button>
-              <button onClick={handleCancel}>
+              <button onClick={() => handleCancel()}>
                 <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
                   <i className="fa-solid fa-thumbs-down"></i>
                 </NavLink>
@@ -90,7 +90,7 @@ const ListeDeleteRecipe = (props) => {
             </div>
           </div>
         ) : (
-          <button onClick={handleConfirm}>
+          <button onClick={() => handleConfirm()}>
             <i className="fa-solid fa-trash"></i>
           </button>
         )}

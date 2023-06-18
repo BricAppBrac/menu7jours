@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPref } from "../feature/pref.slice";
+import { NavLink } from "react-router-dom";
 
-const MenuPrefNavbarProtect = () => {
+const MenuPrefNavbarProtect = (props) => {
   const dispatch = useDispatch();
   const prefSelected = useSelector((state) => state.prefSelect.prefSelected);
 
   let arrayNew = [];
-  let dateDefault = new Date().toISOString().substring(0, 10);
+  let dateDefault = prefSelected[2]
+    ? prefSelected[2]
+    : new Date().toISOString().substring(0, 10);
 
   ///////////////////
   //// PREFERENCES
@@ -39,7 +42,7 @@ const MenuPrefNavbarProtect = () => {
       <div className="pref-nav-container">
         <p>
           <i className="fa-solid fa-chevron-right"></i>
-          &nbsp;PREFERENCES:
+          &nbsp;Préférences:
         </p>
         <ul>
           <li
@@ -47,8 +50,9 @@ const MenuPrefNavbarProtect = () => {
               handleDaysNb(e.target.value);
             }}
           >
-            Nb de jours :
-            <select defaultValue={"7"}>
+            Nb de jours:
+            {/* <select defaultValue={"7"}> */}
+            <select defaultValue={prefSelected[0]}>
               <option value="daysNb">sélectionner</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -65,8 +69,9 @@ const MenuPrefNavbarProtect = () => {
               handleMealsNb(e.target.value);
             }}
           >
-            Nb de repas/j :
-            <select defaultValue={"2"}>
+            Nb de repas/j:
+            {/* <select defaultValue={"2"}> */}
+            <select defaultValue={prefSelected[1]}>
               <option value="mealsNb">sélectionner</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -78,23 +83,43 @@ const MenuPrefNavbarProtect = () => {
               handleDayOne(e.target.value);
             }}
           >
-            Date 1er jour :
+            Date 1er jour:
             <input type="date" defaultValue={dateDefault} />
           </li>
         </ul>
-      </div>
-      {/* <div className="other-container">
-        <p>
+        <div className="valid-container">
           <NavLink
-            to="/PrivateRoute/pagenewrecipe"
-            className={(nav) => (nav.isActive ? "nav-active" : "")}
+            to="/menusvalides"
+            // className={(nav) => (nav.isActive ? "nav-active" : "")}
           >
             <i className="fa-solid fa-chevron-right"></i>
-            Nouvelle Recette{" "}
-            <i id="plusicon" className="fa-solid fa-square-plus"></i>
+            Consulter les Menus validés:&nbsp;
+            <button>
+              <i id="validicon" className="fa-solid fa-file"></i>
+            </button>
           </NavLink>
-        </p>
-      </div> */}
+        </div>
+        <div className="box-options">
+          <div className="box-change-menu">
+            <p>
+              <i className="fa-solid fa-chevron-right"></i>
+              &nbsp;Changer le Menu:&nbsp;
+            </p>
+            <button onClick={() => props.handleChangeMenu()}>
+              <i className="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+          <div className="box-valide-menu">
+            <p>
+              <i className="fa-solid fa-chevron-right"></i>
+              &nbsp;Valider le Menu:&nbsp;
+            </p>
+            <button onClick={() => props.handleValideMenu()}>
+              <i className="fa-solid fa-thumbs-up"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

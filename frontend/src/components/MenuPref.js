@@ -1,156 +1,125 @@
 import React, { useEffect, useState } from "react";
 import MenuCard from "../components/MenuCard";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createMenuRecipe,
-  resetMenuRecipes,
-} from "../feature/menurecipes.slice";
-import { setPref } from "../feature/pref.slice";
-import { createCompo, resetCompo, setCompo } from "../feature/menucompo.slice";
+import { setChecked } from "../feature/checked.slice";
+import { useNavigate } from "react-router-dom";
+import { editCompo } from "../feature/menucompo.slice";
+import { editMenuRecipe } from "../feature/menurecipes.slice";
+import { setStopReset } from "../feature/indicstopreset.slice";
 
 const MenuPref = () => {
-  const liste = useSelector((state) => state.listeRecipes.listeData);
-
-  const prefSelected = useSelector((state) => state.prefSelect.prefSelected);
   const compoListeMenu = useSelector((state) => state.menuCompo.compoListe);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const liste = useSelector((state) => state.listeRecipes.listeData);
   const selectedRecipes = useSelector(
     (state) => state.menuRecipes.menuRecipesData
   );
   let selectedRecipesId = selectedRecipes.map((recipe) => recipe._id);
+  /////////////////////////////////////////////////////
+  const handleChangeMeal = (meal, index, mealnb) => {
+    console.log("handleChangeMeal");
+    console.log("recette : " + meal.title);
+    console.log("index dans compoListe : " + index);
+    console.log("meal : " + mealnb);
 
-  let arrayW = [];
-  let arrayNew = [];
-
-  let dateDefault = new Date().toISOString().substring(0, 10);
-  let nextdayFormat = new Date().toISOString().substring(0, 10);
-
-  const dispatch = useDispatch();
-
-  // // Initialisation des recettes du Menu du store
-  // dispatch(resetMenuRecipes());
-  // selectedRecipesId = [];
-
-  // Initialisation de la date du jour et mémorisation dans la valeur par défaut de dayOne
-  if (!prefSelected[2]) {
-    console.log("*******************************************");
-    console.log("Initialisation de la date de début");
-    console.log("*******************************************");
-    arrayNew = ["7", "2", dateDefault];
-    dispatch(setPref(arrayNew));
-  } else {
-    console.log("*******************************************");
-    console.log("Préférences prises en compte");
-    console.log("*******************************************");
-  }
-  console.log("prefSelected nb de jours : " + prefSelected[0]);
-  console.log("prefSelected nb repas/j : " + prefSelected[1]);
-  console.log("prefSelected dayOne : " + prefSelected[2]);
-  console.log("*******************************************");
-
-  ////////////////////////////////////////////////////////////////////
-  //******************************************************************
-  // Sélection d'une liste aléatoire de recettes selon les préférences nb de jours prefSelected[0] et nb de repas/jour prefSelected[1]
-  //******************************************************************
-  ////////////////////////////////////////////////////////////////////
-  const handlePref = (prefSelected) => {
-    console.log("handlePref");
-    /////////////////////////////////////////////////////////////////////////////
-    // Calcul du nombre de recettes à sélectionner : nb de jours * nb de repas/j
-    /////////////////////////////////////////////////////////////////////////////
-    const numRecipes = prefSelected[0] * prefSelected[1];
-    arrayW = [];
-    console.log("numRecipes : " + numRecipes);
-    console.log("prefSelected");
-    console.log(prefSelected);
-
-    let firstday = new Date(prefSelected[2]);
-    let nextday = new Date(prefSelected[2]);
-    ////////////////////////////////////////
-    // Initialisation du tableau des jours
-    ////////////////////////////////////////
-    for (let i = 0; i < prefSelected[0]; i++) {
-      nextday.setDate(firstday.getDate() + i);
-      console.log("*** calcul des jours *** index : " + i);
-
-      console.log("nextday : " + nextday);
-      // nextdayFormat = nextday.toISOString().substring(0, 10);
-      nextdayFormat = nextday.toLocaleDateString("fr-FR");
-      arrayW.push(nextdayFormat);
-      if (prefSelected[1] === "1") {
-        dispatch(createCompo([i, 1, nextdayFormat, "meal1", null]));
-      } else {
-        dispatch(createCompo([i, 2, nextdayFormat, "meal1", "meal2"]));
-      }
-      console.log("nextdayFormat : " + nextdayFormat);
-    }
-
-    /////////////////////////////////////////////////////
-    // Constitution de la liste de recettes aléatoires
-    /////////////////////////////////////////////////////
+    // sélection d'un nouveau repas aléatoire, différent de ceux déjà dans compoListe : newmeal
     let i = 0;
-
-    if (liste.length < numRecipes) {
-      console.log(
-        "*************************************************************"
-      );
-      console.log(
-        "********ATTENTION, PAS ASSEZ DE RECETTES DANS LA LISTE ******"
-      );
-      console.log(
-        "*************************************************************"
-      );
-      console.log("Nbre de Recettes total : " + liste.length);
-    } else {
-      console.log("Nbre de Recettes total : " + liste.length);
-    }
-    while (arrayW.length < numRecipes && i < 9000) {
+    let arrayW = [];
+    while (arrayW.length < 1 && i < 900) {
       const randomIndex = Math.floor(Math.random() * liste.length);
       const randomRecipe = liste[randomIndex];
+      console.log("selectedRecipesId");
+      console.log(selectedRecipesId);
       if (!selectedRecipesId.includes(randomRecipe._id)) {
-        console.log("Id à sélectionner : " + i + " / " + randomRecipe._id);
+        console.log("Id à sélectionner : " + i + " / " + randomRecipe.title);
         arrayW.push(randomRecipe);
-        dispatch(createMenuRecipe(randomRecipe));
-
-        selectedRecipesId.push(randomRecipe._id);
       } else {
-        console.log("Id déja inclus : " + i + " / " + randomRecipe._id);
+        console.log("Id déja inclus : " + i + " / " + randomRecipe.title);
       }
       i++;
     }
     console.log("arrayW");
     console.log(arrayW);
+    let newmeal = arrayW[0];
+    console.log("oldmeal");
+    console.log(meal);
+    console.log("newmeal");
+    console.log(newmeal);
 
-    // selectedRecipes = [...arrayW];
-    if (i === 9000) {
-      console.log("boucle infinie");
-    }
+    ////////////////////////////
+    dispatch(editCompo([newmeal, index, mealnb]));
+    dispatch(editMenuRecipe([newmeal, meal._id]));
   };
 
-  /////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////
+  const handleDeleteMeal = (meal, index, mealnb) => {
+    console.log("handleDeleteMeal");
+
+    console.log("recette : " + meal.title);
+    console.log("index dans compoListe : " + index);
+    console.log("meal : " + mealnb);
+
+    // Remplacement du repas supprimé par un repas non prévu
+
+    const emptyMeal = {
+      title: "repas non prévu",
+      author: "Melissande",
+      seasons: [],
+      ingredients: [],
+      quantities: [],
+      categories: [],
+      steps: [],
+      _id: Date.now(),
+    };
+
+    console.log("oldmeal");
+    console.log(meal);
+    console.log("emptymeal");
+    console.log(emptyMeal);
+
+    ////////////////////////////
+    dispatch(editCompo([emptyMeal, index, mealnb]));
+    dispatch(editMenuRecipe([emptyMeal, meal._id]));
+  };
+
+  //////////////////////////////////////////
+  const handleDetailsMeal = (meal) => {
+    console.log("handleDetailsMeal");
+    console.log(meal);
+    dispatch(setChecked(meal));
+    dispatch(setStopReset(true));
+    navigate("/pagedetailsrecipe");
+  };
+
+  //////////////////////////////////////
+  // Mettre à jour la liste lorsque selectedRecipes change
   useEffect(() => {
-    console.log("*******************************************");
-    console.log("useEffect prise en compte PREFERENCES");
-    console.log("*******************************************");
+    console.log("*** USEEFFECT MENUPREF on met à jour selectedRecipesId ***");
+    selectedRecipesId = selectedRecipes.map((recipe) => recipe._id);
+    console.log(selectedRecipesId);
+    console.log("à partir de selectedRecipes:");
+    console.log(selectedRecipes);
+  }, [selectedRecipes]);
 
-    dispatch(resetMenuRecipes());
-    dispatch(resetCompo());
-    selectedRecipesId = [];
-    arrayW = [];
-    handlePref(prefSelected);
-  }, [prefSelected]);
-
+  ////////////////////////////////////
   return (
-    <div className="dayscards-liste">
-      {compoListeMenu &&
-        compoListeMenu
-          .slice()
-          .map((compo) => (
-            <MenuCard
-              key={compo[0]}
-              compo={compo}
-              prefSelected={prefSelected}
-            />
-          ))}
+    <div className="compo-container">
+      <div className="dayscards-liste">
+        {compoListeMenu &&
+          compoListeMenu
+            .slice()
+            .map((compo) => (
+              <MenuCard
+                key={compo.index}
+                compo={compo}
+                handleChangeMeal={handleChangeMeal}
+                handleDeleteMeal={handleDeleteMeal}
+                handleDetailsMeal={handleDetailsMeal}
+              />
+            ))}
+      </div>
     </div>
   );
 };

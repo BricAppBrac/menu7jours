@@ -1190,7 +1190,7 @@ const DétailsEdit = () => {
             </div>
             <p className="espace-message">{messageEdit}</p>
             <div className="edit-button-container">
-              <button onClick={handleBack}>
+              <button onClick={() => handleBack()}>
                 <NavLink to="/PrivateRoute/HomeListeRecettesProtect">
                   <i className="fa-solid fa-rotate-left"></i>
                 </NavLink>
