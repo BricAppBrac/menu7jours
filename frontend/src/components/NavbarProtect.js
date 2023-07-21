@@ -52,7 +52,7 @@ const NavbarProtect = () => {
             </button>
             {/* <span>en préparation</span> */}
           </div>
-          <h3>Une application BricAppBrac qui simplifie la vie</h3>
+          <h3>Une application BricAppBrac</h3>
         </div>
       </div>
     </nav>

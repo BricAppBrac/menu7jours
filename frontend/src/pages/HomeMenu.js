@@ -50,22 +50,26 @@ const HomeMenu = () => {
   /////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////
   // Initialisation de la date du jour et mémorisation dans la valeur par défaut de dayOne
-  if (!prefSelected[2]) {
+  const handleDayOne = () => {
+    console.log(
+      " //////////////   HANDLE DAY ONE     ////////////////////////"
+    );
+    if (!prefSelected[2]) {
+      console.log("*******************************************");
+      console.log("Initialisation de la date de début");
+      console.log("*******************************************");
+      arrayNew = ["7", "2", dateDefault];
+      dispatch(setPref(arrayNew));
+    } else {
+      console.log("*******************************************");
+      console.log("Préférences prises en compte");
+      console.log("*******************************************");
+    }
+    console.log("prefSelected nb de jours : " + prefSelected[0]);
+    console.log("prefSelected nb repas/j : " + prefSelected[1]);
+    console.log("prefSelected dayOne : " + prefSelected[2]);
     console.log("*******************************************");
-    console.log("Initialisation de la date de début");
-    console.log("*******************************************");
-    arrayNew = ["7", "2", dateDefault];
-    dispatch(setPref(arrayNew));
-  } else {
-    console.log("*******************************************");
-    console.log("Préférences prises en compte");
-    console.log("*******************************************");
-  }
-  console.log("prefSelected nb de jours : " + prefSelected[0]);
-  console.log("prefSelected nb repas/j : " + prefSelected[1]);
-  console.log("prefSelected dayOne : " + prefSelected[2]);
-  console.log("*******************************************");
-
+  };
   /////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////
 
@@ -323,6 +327,11 @@ const HomeMenu = () => {
     console.log("*******************************************");
     console.log("useEffect HOME MENU prise en compte PREFERENCES");
     console.log("*******************************************");
+    //********** Gestion de dayOne */
+    console.log("Gestion de dayOne");
+    console.log(prefSelected[2]);
+    handleDayOne();
+    //*********** */
     console.log("indicStopReset :");
     console.log(indicStopReset);
     console.log("indicStopResetDate");

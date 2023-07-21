@@ -1,18 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import { setChecked } from "../feature/checked.slice";
-import { createRecipe } from "../feature/recipe.slice";
+import { useNavigate } from "react-router-dom";
 import DayCard from "./DayCard";
 import { setPref } from "../feature/pref.slice";
 import { setCompo } from "../feature/menucompo.slice";
-import { setStopReset } from "../feature/indicstopreset.slice";
+
 import {
   createMenuRecipe,
   resetMenuRecipes,
 } from "../feature/menurecipes.slice";
 import { deleteListeMenu } from "../feature/menusliste.slice";
 import axios from "axios";
+import { setStopReset } from "../feature/indicstopreset.slice";
 import { setStopResetDate } from "../feature/indicstopresetdate.slice";
 
 const MenusListeCard = ({ menu }) => {
@@ -20,6 +19,7 @@ const MenusListeCard = ({ menu }) => {
   const navigate = useNavigate();
   // const [message, setMessage] = useState("");
   const liste = useSelector((state) => state.listeRecipes.listeData);
+  const menuRecipes = useSelector((state) => state.menuRecipes.menuRecipesData);
 
   let arrayNew = [];
   let arrayW = [];
@@ -32,37 +32,11 @@ const MenusListeCard = ({ menu }) => {
 
   dayFormat = dDay.toLocaleDateString("fr-FR");
 
-  // ***********************************************************
-  // Clic sur le bouton Générer Liste de courses
-  // ***********************************************************
-
-  const handleListeCourses = (menu) => {
-    console.log("handleListeCourses : " + menu.prefDayOne);
-    navigate("/listecourses");
-  };
-  // ***********************************************************
-  // Clic sur le bouton Supprimer le Menu Validé
-  // ***********************************************************
-
-  const handleDeleteMenuValide = (menu) => {
-    console.log("handleDeleteMenuValide : " + menu.prefDayOne);
-
-    axios.delete("http://localhost:5000/menu/" + menu._id);
-    console.log("DELETE MENU BDD");
-
-    deleteListeMenu(menu._id);
-  };
-
-  // ***********************************************************
-  // Clic sur le bouton Récupérer un ancien Menu Validé
-  // ***********************************************************
-  const handleRecupMenu = (menu) => {
-    console.log("handleRecupMenu : " + menu.prefDayOne);
-    dispatch(setStopResetDate(true));
-    dispatch(setStopReset(true));
-    // Choix d'un menu => mise en phase des préférences dans le store
-    // prefSelect / prefSelected
-
+  // ***********************************************
+  // Choix d'un menu => mise en phase des préférences dans le store
+  // prefSelect / prefSelected
+  // ***********************************************
+  const handlePhasePref = (menu) => {
     console.log("*******************************************");
     console.log("Alimentation des préférences");
     console.log("*******************************************");
@@ -70,12 +44,13 @@ const MenusListeCard = ({ menu }) => {
     dispatch(setPref(arrayNew));
     console.log(arrayNew);
     console.log("*******************************************");
+  };
 
-    // Choix d'un menu => mise en phase des de la compo du Menu
-    // dans le store : menuCompo / compoListe
-    // Choix d'un menu => mise en phase des recettes du Menu
-    // dans le store : menuRecipes / menuRecipesData
-
+  // Choix d'un menu => mise en phase des de la compo du Menu
+  // dans le store : menuCompo / compoListe
+  // Choix d'un menu => mise en phase des recettes du Menu
+  // dans le store : menuRecipes / menuRecipesData
+  const handlePhaseMenuCompo = (menu) => {
     console.log("*******************************************");
     console.log("Alimentation de compoListe et de menuRecipesData");
     console.log("*******************************************");
@@ -83,28 +58,24 @@ const MenusListeCard = ({ menu }) => {
     // Alimentation de arrayW avec la liste des id des recettes du Menu
 
     let arrayW = [];
+    console.log("Nbre de jours du Menu : ");
+    console.log(menu.prefNbJ);
 
-    for (let i = 0; i < menu.prefNbJ && i < 9000; i++) {
-      menu.menuJ.forEach((recipe) => {
-        if (menu.prefNbMeal === 2) {
-          arrayW = [...arrayW, recipe[1], recipe[3]];
-        } else {
-          arrayW = [...arrayW, recipe[1]];
-        }
-      });
-
-      if (i === 9000) {
-        console.log("boucle i infinie");
+    menu.menuJ.forEach((dayMenu) => {
+      if (menu.prefNbMeal === 2) {
+        arrayW = [...arrayW, dayMenu[1], dayMenu[3]];
+      } else {
+        arrayW = [...arrayW, dayMenu[1]];
       }
-    }
+    });
 
     console.log("liste des ids du Menu");
     console.log(arrayW);
 
-    // Récupération des recettes complètes à partir des id, pour menuRecipes
+    // Récupération des recettes complètes à partir des id, pour alimentation de menuRecipes
 
     let arrayRecipes = [];
-    resetMenuRecipes();
+    dispatch(resetMenuRecipes());
 
     for (let k = 0; k < arrayW.length && k < 9000; k++) {
       const recipe = liste.find((recipe) => recipe._id === arrayW[k]);
@@ -120,18 +91,22 @@ const MenusListeCard = ({ menu }) => {
     console.log("liste des recettes du Menu");
     console.log(arrayRecipes);
 
-    //******************************************************* */
-    // Si un menu avec la même date de début dayOne existe, on remplace par le nouveau menu, sinon on ajoute un nouveau menu à la table des Menus Validés
-    //****************************************************** */
+    // Alimentation de menuCompo
+
     let firstday = new Date(menu.prefDayOne);
-    let nextday = new Date(menu.prefDayOne);
+    // let nextday = new Date(menu.prefDayOne);
+    let nextday = new Date(firstday);
+
     let jMeal = 0;
 
     let arrayCompo = [];
     let newCompo = {};
 
     for (let j = 0; j < menu.prefNbJ && j < 9000; j++) {
-      nextday.setDate(firstday.getDate() + j);
+      // nextday.setDate(firstday.getDate() + j);
+      if (j !== 0) {
+        nextday.setDate(nextday.getDate() + 1);
+      }
       console.log("*** calcul des jours *** index : " + j);
 
       nextdayFormat = nextday.toLocaleDateString("fr-FR");
@@ -176,6 +151,49 @@ const MenusListeCard = ({ menu }) => {
         dispatch(setCompo(arrayCompo));
       }
     }
+  };
+
+  // ***********************************************************
+  // Clic sur le bouton Générer Liste de courses
+  // ***********************************************************
+
+  const handleListeCourses = (menu) => {
+    console.log("handleListeCourses : " + menu.prefDayOne);
+    handlePhasePref(menu);
+    handlePhaseMenuCompo(menu);
+    navigate("/listecourses");
+  };
+  // ***********************************************************
+  // Clic sur le bouton Supprimer le Menu Validé
+  // ***********************************************************
+
+  const handleDeleteMenuValide = (menu) => {
+    console.log("handleDeleteMenuValide : " + menu.prefDayOne);
+
+    axios.delete("http://localhost:5000/menu/" + menu._id);
+    console.log("DELETE MENU BDD");
+
+    dispatch(deleteListeMenu(menu._id));
+  };
+
+  // ***********************************************************
+  // Clic sur le bouton Récupérer un ancien Menu Validé
+  // ***********************************************************
+  const handleRecupMenu = (menu) => {
+    console.log("handleRecupMenu : " + menu.prefDayOne);
+    // on indique qu'il ne faut pas changer la date des préférences
+    // on indique qu'il ne faut pas recharger un menu aléatoire
+    dispatch(setStopResetDate(true));
+    dispatch(setStopReset(true));
+    // Appel mise en phase des préférences dans le store
+    // prefSelect / prefSelected
+    handlePhasePref(menu);
+
+    // Appel mise en phase des de la compo du Menu
+    // dans le store : menuCompo / compoListe
+    // Appel mise en phase des recettes du Menu
+    // dans le store : menuRecipes / menuRecipesData
+    handlePhaseMenuCompo(menu);
 
     // on indique qu'il ne faut pas recharger un menu aléatoire
     dispatch(setStopReset(true));

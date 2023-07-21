@@ -15,7 +15,7 @@
       flex-direction: column;
 
       border-radius: 20px;
-      width: 70%;
+      width: 80%;
 
       padding: 10px 5px;
       margin: 20px auto;
@@ -24,19 +24,17 @@
       box-shadow: 13px 11px 18px 3px rgb(37 21 11);
       height: fit-content;
 
-      @media screen and (max-width: 1020px) {
-        width: 80%;
-      }
+     
 
       @media screen and (max-width: 920px) {
         width: 85%;
       }
 
-      @media screen and (max-width: 820px) {
+      @media screen and (max-width: 860px) {
         width: 90%;
       }
 
-      @media screen and (max-width: 780px) {
+      @media screen and (max-width: 810px) {
         width: 95%;
 
         margin: 10px auto;

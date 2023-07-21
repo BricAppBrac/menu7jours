@@ -13,6 +13,7 @@ import menurecipesReducer from "../feature/menurecipes.slice";
 import menucompoReducer from "../feature/menucompo.slice";
 import indicstopresetReducer from "../feature/indicstopreset.slice";
 import indicstopresetdateReducer from "../feature/indicstopresetdate.slice";
+import listecoursesReducer from "../feature/listecourses.slice";
 
 export default configureStore({
   reducer: {
@@ -30,5 +31,6 @@ export default configureStore({
     indicStopResetDate: indicstopresetdateReducer,
     listeMenus: menusReducer,
     sortSelectMenus: sortmenusReducer,
+    listeCourses: listecoursesReducer,
   },
 });

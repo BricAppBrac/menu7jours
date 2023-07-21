@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPref } from "../feature/pref.slice";
-import { NavLink } from "react-router-dom";
+import { setPref, resetPref } from "../feature/pref.slice";
+import { useNavigate } from "react-router-dom";
+import { resetCompo } from "../feature/menucompo.slice";
+import { resetMenuRecipes } from "../feature/menurecipes.slice";
 
 const MenuPrefNavbarProtect = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const prefSelected = useSelector((state) => state.prefSelect.prefSelected);
 
   let arrayNew = [];
@@ -37,9 +40,21 @@ const MenuPrefNavbarProtect = (props) => {
     arrayNew = [];
   };
 
+  /////////////////////////////////////
+  //// Consulter les menus validés
+  /////////////////////////////////////
+  const handleConsultMenus = (dayOne) => {
+    console.log("handleConsultMenus");
+    // Pour consulter les menus, on ne sélectionne aucun menu => reset dans le store
+    dispatch(resetPref());
+    dispatch(resetCompo());
+    dispatch(resetMenuRecipes());
+    navigate("/menusvalides");
+  };
+
   return (
-    <div className="pref-nav">
-      <div className="pref-nav-container">
+    <div className="menu-nav">
+      <div className="menu-nav-container">
         <p>
           <i className="fa-solid fa-chevron-right"></i>
           &nbsp;Préférences:
@@ -87,19 +102,18 @@ const MenuPrefNavbarProtect = (props) => {
             <input type="date" defaultValue={dateDefault} />
           </li>
         </ul>
-        <div className="valid-container">
-          <NavLink
-            to="/menusvalides"
-            // className={(nav) => (nav.isActive ? "nav-active" : "")}
-          >
-            <i className="fa-solid fa-chevron-right"></i>
-            Consulter les Menus validés:&nbsp;
-            <button>
+        <div className="box-options-menu">
+          <div className="box-consult-menu">
+            <p>
+              <i className="fa-solid fa-chevron-right"></i>
+              Consulter les Menus validés:&nbsp;
+            </p>
+            <button onClick={() => handleConsultMenus()}>
               <i id="validicon" className="fa-solid fa-file"></i>
             </button>
-          </NavLink>
+          </div>
         </div>
-        <div className="box-options">
+        <div className="box-options-menu">
           <div className="box-change-menu">
             <p>
               <i className="fa-solid fa-chevron-right"></i>

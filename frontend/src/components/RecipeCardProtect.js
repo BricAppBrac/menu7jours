@@ -15,11 +15,41 @@ const RecipeCardProtect = ({ recipe }) => {
 
         <h4>Ingrédients principaux: </h4>
         <div className="ingredients-liste">
-          <p>{recipe.ingredients[0] ? recipe.ingredients[0] : ""}</p>
-          <p>{recipe.ingredients[1] ? " / " + recipe.ingredients[1] : ""}</p>
-          <p>{recipe.ingredients[2] ? " / " + recipe.ingredients[2] : ""}</p>
-          <p>{recipe.ingredients[3] ? " / " + recipe.ingredients[3] : ""}</p>
-          <p>{recipe.ingredients[4] ? " / " + recipe.ingredients[4] : ""}</p>
+          <p>
+            {recipe.ingredients[0] ? (
+              <span>&#10037; {recipe.ingredients[0]}</span>
+            ) : (
+              ""
+            )}
+          </p>
+          <p>
+            {recipe.ingredients[1] ? (
+              <span>&#10037; {recipe.ingredients[1]}</span>
+            ) : (
+              ""
+            )}
+          </p>
+          <p>
+            {recipe.ingredients[2] ? (
+              <span>&#10037; {recipe.ingredients[2]}</span>
+            ) : (
+              ""
+            )}
+          </p>
+          <p>
+            {recipe.ingredients[3] ? (
+              <span>&#10037; {recipe.ingredients[3]}</span>
+            ) : (
+              ""
+            )}
+          </p>
+          <p>
+            {recipe.ingredients[4] ? (
+              <span>&#10037; {recipe.ingredients[4]}</span>
+            ) : (
+              ""
+            )}
+          </p>
         </div>
         <div className="checkbox-container">
           {/* <div className="box-details" onClick={() => handleDetails()}>

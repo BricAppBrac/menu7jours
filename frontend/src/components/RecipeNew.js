@@ -14,7 +14,7 @@ const RecipeNew = () => {
   ]);
 
   const [displaySteps, setDisplaySteps] = useState([
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   ]);
 
   const [newTitle, setNewTitle] = useState("");
@@ -518,6 +518,7 @@ const RecipeNew = () => {
                 className="new"
                 id="newTitle"
                 autoComplete="off"
+                maxLength={45} // Limite la saisie à 45 caractères
                 onChange={(e) => handleTitle(e.target.value)}
               />
             </div>
@@ -603,6 +604,7 @@ const RecipeNew = () => {
                     id={"newStep" + indexStep}
                     autoComplete="off"
                     placeholder={"Etape " + (indexStep + 1)}
+                    maxLength={115} // Limite la saisie à 115 caractères
                     onChange={(e) => {
                       handleSteps(e.target.value, indexStep);
                     }}

@@ -21,7 +21,10 @@ const IngredientCardDetails = (props) => {
           </h6>
         </div>
         <div className="select-category">
-          <h6 name={"category" + props.index} id={"category" + props.index}>
+          <h6
+            name={"detailsCategory" + props.index}
+            id={"detailsCategory" + props.index}
+          >
             {props.recipe.categories[props.index]}
           </h6>
         </div>

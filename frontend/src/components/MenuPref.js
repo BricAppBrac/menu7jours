@@ -96,11 +96,15 @@ const MenuPref = () => {
   //////////////////////////////////////
   // Mettre à jour la liste lorsque selectedRecipes change
   useEffect(() => {
-    console.log("*** USEEFFECT MENUPREF on met à jour selectedRecipesId ***");
-    selectedRecipesId = selectedRecipes.map((recipe) => recipe._id);
-    console.log(selectedRecipesId);
-    console.log("à partir de selectedRecipes:");
+    console.log("*** USEEFFECT MENUPREF ***");
+    console.log("*** selectedRecipes a changé ***");
     console.log(selectedRecipes);
+    console.log("*** on met à jour selectedRecipesId ***");
+    console.log("**** AVANT ****");
+    console.log(selectedRecipesId);
+    selectedRecipesId = selectedRecipes.map((recipe) => recipe._id);
+    console.log("**** APRES ****");
+    console.log(selectedRecipesId);
   }, [selectedRecipes]);
 
   ////////////////////////////////////

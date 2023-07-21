@@ -9,8 +9,11 @@ export const prefSlice = createSlice({
     setPref: (state, { payload }) => {
       state.prefSelected = payload;
     },
+    resetPref: (state, { payload }) => {
+      state.prefSelected = [null, null, null];
+    },
   },
 });
 
-export const { setPref } = prefSlice.actions;
+export const { setPref, resetPref } = prefSlice.actions;
 export default prefSlice.reducer;

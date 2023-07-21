@@ -22,6 +22,7 @@
     margin: 5px auto;
   }
 
+ 
   @media screen and (max-width: 500px) {
     margin: 5px auto;
     padding: 0 auto;
@@ -71,9 +72,9 @@
         //   background: $parchemin;
         // }
 
-        &.sortnav-active {
-          background: $parchemin;
-        }
+        // &.sortnav-active {
+        //   background: $parchemin;
+        // }
 
         select,
         input {
@@ -104,20 +105,20 @@
     }
 
 
-    .box-options {
+    .box-options-pref {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
-      // height: 40px;
-      // margin: 0 auto;
-      padding: 0;
+      // justify-content: space-between;
+      // padding: 0;
 
-     
+      margin: 2px;
+      justify-content: right;
 
      
 
       .box-change-menu,
-      .box-valide-menu {
+      .box-valide-menu,
+      .box-consult-menu {
         // height: 30px;
         display: flex;
         flex-direction: row;

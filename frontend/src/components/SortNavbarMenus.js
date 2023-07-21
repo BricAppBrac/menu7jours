@@ -31,7 +31,7 @@ const SortNavbarMenus = () => {
     if (day === null || day.length === 0 || day === undefined) {
       dayRef.current.className = "";
     } else {
-      dayRef.current.className = "sortnav-active";
+      dayRef.current.className = "sortnav-menu-active";
     }
 
     dispatch(setSortMenus(arrayNew));
