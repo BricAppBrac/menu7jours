@@ -56,7 +56,8 @@
 
     }
 
-    .button-container {
+    .button-container,
+    .day-container {
       display: flex;
       flex-direction: row;
       justify-content:center;
@@ -110,6 +111,55 @@
           margin: 0 2px;
       
         }
+
+       
+      }
+
+      .box-details {
+        // height: 30px;
+        // padding: 5px;
+
+        i {
+          // border: 2px solid $brown1;
+          background-color: $green3;
+          transition: all 0.2s linear;
+          // border-radius: 5px;
+          font-size: 1.5rem;
+          font-weight: 700;
+          align-items: center;
+          color: $green2;
+          // margin: 0 5px 5px 0;
+          display: block;
+             padding: 5px 9px;
+          margin: 0 2px;
+
+          &:hover {
+            letter-spacing: 2.5px;
+            background: $brown1;
+            color: wheat;
+          }
+
+       
+        
+        }
+
+        // a {
+        //   padding: 3px 6px;
+        
+
+        //   &:before {
+        //     content: "";
+        //     color: $green2;
+        //   }
+        // }
+
+      
+
+        // button, i {
+        //   padding: 5px 9px;
+        //   margin: 0 2px;
+      
+        // }
 
        
       }
