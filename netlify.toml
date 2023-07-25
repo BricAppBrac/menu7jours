@@ -1,5 +1,6 @@
 [build]
-  functions = "functions/"
+  functions = "/"
+  command = "npm run build"
 [[redirects]]
   from = '/*'
   to = '/.netlify/functions/:splat'
