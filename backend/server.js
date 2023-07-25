@@ -12,7 +12,8 @@ const app = express();
 // Authorisation CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://menu7jours.netlify.app",
+    // origin: "http://localhost:3000",
     // origin: "https://bricappbrac.github.io/menu7jours/",
     credentials: true,
     optionsSuccessStatus: 200,
