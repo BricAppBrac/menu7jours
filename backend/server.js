@@ -12,8 +12,8 @@ const app = express();
 // Authorisation CORS
 app.use(
   cors({
-    // origin: "https://localhost:3000",
-    origin: "https://bricappbrac.github.io/menu7jours/",
+    origin: "http://localhost:3000",
+    // origin: "https://bricappbrac.github.io/menu7jours/",
     credentials: true,
     optionsSuccessStatus: 200,
   })
