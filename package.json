@@ -19,6 +19,9 @@
     "mongoose": "^7.4.1",
     "mongoose-unique-validator": "^3.1.0",
     "nodemon": "^2.0.22"
+  },
+  "resolutions": {
+    "mongoose": "^7.4.1"
   }
   
 }
