@@ -1,13 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { setChecked } from "../feature/checked.slice";
 import { createRecipe } from "../feature/recipe.slice";
 
 const RecipeCard = ({ recipe }) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const [message, setMessage] = useState("");
 
   const handleDetails = () => {
     console.log("handleDetails");
@@ -15,7 +13,6 @@ const RecipeCard = ({ recipe }) => {
     dispatch(setChecked(recipe));
     dispatch(createRecipe(recipe));
     console.log("après dispatch setChecked et createRecipe");
-    // navigate("/pagedetailsrecipe");
   };
 
   return (
@@ -67,10 +64,6 @@ const RecipeCard = ({ recipe }) => {
               <i className="fa fa-sharp fa-solid fa-circle-info"></i>
             </NavLink>
           </div>
-
-          {/* <div className="box-message">
-            <p>{message}</p>
-          </div> */}
         </div>
       </div>
     </div>

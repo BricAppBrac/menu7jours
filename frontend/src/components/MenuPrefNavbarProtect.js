@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPref, resetPref } from "../feature/pref.slice";
 import { useNavigate } from "react-router-dom";

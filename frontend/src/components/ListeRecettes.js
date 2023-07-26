@@ -66,7 +66,7 @@ const ListeRecettes = () => {
               case "Croissant":
                 return a.title.localeCompare(b.title);
               default:
-                null;
+                console.log("Cas qui ne devrait pas arriver");
             }
           })
           .map((recipe) => <RecipeCard key={recipe._id} recipe={recipe} />)}

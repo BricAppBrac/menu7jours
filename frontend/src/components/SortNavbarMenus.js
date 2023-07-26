@@ -9,7 +9,6 @@ const SortNavbarMenus = () => {
   );
 
   let arrayNew = [];
-  let dateDefault = new Date().toISOString().substring(0, 10);
 
   const dayRef = useRef();
   const croissantRefMenu = useRef();

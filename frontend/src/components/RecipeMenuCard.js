@@ -1,8 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import { setChecked } from "../feature/checked.slice";
-import { createRecipe } from "../feature/recipe.slice";
 
 const RecipeMenuCard = ({ element }) => {
   console.log("element passé en props");

@@ -11,7 +11,6 @@ import {
 } from "../feature/menurecipes.slice";
 import { setPref } from "../feature/pref.slice";
 import {
-  createCompo,
   editCompoDate,
   resetCompo,
   setCompo,

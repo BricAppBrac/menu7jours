@@ -36,7 +36,7 @@ export const menurecipesSlice = createSlice({
         (recipe) => recipe._id !== payload
       );
     },
-    resetMenuRecipes: (state, {}) => {
+    resetMenuRecipes: (state) => {
       state.menuRecipesData = [];
     },
   },

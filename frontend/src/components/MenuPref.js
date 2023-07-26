@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MenuCard from "../components/MenuCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setChecked } from "../feature/checked.slice";

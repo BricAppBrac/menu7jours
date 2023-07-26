@@ -1,13 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { setChecked } from "../feature/checked.slice";
 import ListeDeleteRecipe from "./ListeDeleteRecipe";
 
 const RecipeCardProtect = ({ recipe }) => {
-  const dispatch = useDispatch();
-  // dispatch(setConfirmDelete("liste-0"));
-
   return (
     <div className="recipe-card">
       <div className="recipe-card-content">
@@ -52,11 +46,6 @@ const RecipeCardProtect = ({ recipe }) => {
           </p>
         </div>
         <div className="checkbox-container">
-          {/* <div className="box-details" onClick={() => handleDetails()}>
-            <NavLink to="/PrivateRoute/pagedetailsrecipeprotect">
-              <i className="fa fa-sharp fa-solid fa-circle-info"></i>
-            </NavLink>
-          </div> */}
           <ListeDeleteRecipe recipe={recipe} delOrigin={"liste-0"} />
         </div>
       </div>

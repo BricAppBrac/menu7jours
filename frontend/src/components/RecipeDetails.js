@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import IngredientCardDetails from "./IngredientCardDetails";
-import { setConfirmDelete } from "../feature/indic.slice";
 
 const RecipeDetails = () => {
-  const [displayDetails, setDisplayDetails] = useState(true);
-  const [messageDetails, setMessageDetails] = useState("");
+  const [displayDetails] = useState(true);
+  const [messageDetails] = useState("");
 
   const checkedRecipe = useSelector((state) => state.checkedRec.checkedRecipe);
 
-  const [displayIngredients, setDisplayIngredients] = useState([
+  const [displayIngredients] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   ]);
 
-  const [displaySteps, setDisplaySteps] = useState([
+  const [displaySteps] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   ]);
 

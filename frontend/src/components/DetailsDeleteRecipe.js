@@ -11,8 +11,6 @@ const DetailsDeleteRecipe = (props) => {
   const [message, setMessage] = useState("");
   const [origin, setOrigin] = useState(props.delOrigin);
 
-  const confirmDelete = useSelector((state) => state.confDelete.confDelete);
-
   //////////////////////////////////////////
 
   const handleEdit = () => {
@@ -21,19 +19,10 @@ const DetailsDeleteRecipe = (props) => {
     console.log(checkedRecipe.title);
   };
 
-  const handleValidate = () => {
-    //---------------------------------
-    console.log("handleValidate");
-  };
-
-  const handleBack = () => {
-    //---------------------------------
-    console.log("handleBack");
-  };
   //////////////////////////////////////////
   const handleCancel = () => {
     console.log("handleCancel");
-    if (origin == "détails-1") {
+    if (origin === "détails-1") {
       setMessage("");
       setOrigin("détails-0");
     }
@@ -52,13 +41,13 @@ const DetailsDeleteRecipe = (props) => {
       console.log("après dispatch deleteRecipe");
     };
 
-    if (origin == "détails-0") {
+    if (origin === "détails-0") {
       setMessage("Confirmer la suppression");
       dispatch(setConfirmDelete("détails-1"));
       console.log("après dispatch setConfirmDelete");
       setOrigin("détails-1");
     }
-    if (origin == "détails-1") {
+    if (origin === "détails-1") {
       setMessage("Suppression effectuée");
 
       setOrigin("détails-2");
@@ -95,7 +84,7 @@ const DetailsDeleteRecipe = (props) => {
         )}
       </div>
       <div className="box-delete">
-        {origin == "détails-1" ? (
+        {origin === "détails-1" ? (
           <div className="box-message-conf">
             <div className="box-message">
               <p>{message}</p>

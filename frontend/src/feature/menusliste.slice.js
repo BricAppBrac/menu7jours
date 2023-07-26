@@ -10,7 +10,7 @@ export const menuslisteSlice = createSlice({
       state.menusData = payload;
     },
     editListeMenus: (state, { payload }) => {
-      state.menusData = state.menusData.map((menucompoReducer) => {
+      state.menusData = state.menusData.map((menu) => {
         if (menu._id === payload[1]) {
           return {
             ...menu,
@@ -20,7 +20,7 @@ export const menuslisteSlice = createSlice({
             menuJ: payload[0].menuJ,
           };
         } else {
-          return recipe;
+          return menu;
         }
       });
     },

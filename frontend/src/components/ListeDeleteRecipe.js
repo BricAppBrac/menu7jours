@@ -16,7 +16,7 @@ const ListeDeleteRecipe = (props) => {
   //////////////////////////////////////////
   const handleCancel = () => {
     console.log("handleCancel");
-    if (origin == "liste-1") {
+    if (origin === "liste-1") {
       setMessage("");
       setOrigin("liste-0");
     }
@@ -42,13 +42,13 @@ const ListeDeleteRecipe = (props) => {
       console.log("après dispatch deleteRecipe");
     };
 
-    if (origin == "liste-0") {
+    if (origin === "liste-0") {
       setMessage("Confirmer la suppression");
       setOrigin("liste-1");
       dispatch(setConfirmDelete("liste-1"));
       console.log("après dispatch setConfirmDelete");
     }
-    if (origin == "liste-1") {
+    if (origin === "liste-1") {
       setMessage("Suppression effectuée");
       setOrigin("liste-2");
       dispatch(setConfirmDelete("liste-2"));
@@ -71,7 +71,7 @@ const ListeDeleteRecipe = (props) => {
         )}
       </div>
       <div className="box-delete">
-        {origin == "liste-1" ? (
+        {origin === "liste-1" ? (
           <div className="box-message-conf">
             <div className="box-message">
               <p>{message}</p>

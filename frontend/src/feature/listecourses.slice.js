@@ -21,7 +21,7 @@ export const listecoursesSlice = createSlice({
 
       state.listeCoursesData = payload;
     },
-    deleteListeCourses: (state, {}) => {
+    deleteListeCourses: (state) => {
       state.listeCoursesData = [];
     },
   },

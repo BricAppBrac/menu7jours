@@ -14,9 +14,9 @@ const NavbarProtect = () => {
 
   const handleInit = () => {
     dispatch(setSort(["Croissant", null, null]));
-    decroissantRef.current.className = "";
-    saisonRef.current.className = "";
-    motcleRef.current.className = "";
+    // decroissantRef.current.className = "";
+    // saisonRef.current.className = "";
+    // motcleRef.current.className = "";
   };
 
   return (

@@ -1,10 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 
 const MenuCard = (props) => {
-  const prefSelected = useSelector((state) => state.prefSelect.prefSelected);
-
   return (
     <div className="compo-card">
       <div className="compo-card-content">

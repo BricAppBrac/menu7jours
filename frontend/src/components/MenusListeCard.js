@@ -19,10 +19,8 @@ const MenusListeCard = ({ menu }) => {
   const navigate = useNavigate();
   // const [message, setMessage] = useState("");
   const liste = useSelector((state) => state.listeRecipes.listeData);
-  const menuRecipes = useSelector((state) => state.menuRecipes.menuRecipesData);
 
   let arrayNew = [];
-  let arrayW = [];
 
   // **** GESTION FORMAT DATE **********************************
 

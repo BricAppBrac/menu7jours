@@ -4,16 +4,16 @@ import IngredientCard from "./IngredientCard";
 import { NavLink } from "react-router-dom";
 
 const RecipeNew = () => {
-  const [displayNew, setDisplayNew] = useState(true);
+  const [displayNew] = useState(true);
   const [messageNew, setMessageNew] = useState(
     "Saisir les informations et valider"
   );
 
-  const [displayIngredients, setDisplayIngredients] = useState([
+  const [displayIngredients] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   ]);
 
-  const [displaySteps, setDisplaySteps] = useState([
+  const [displaySteps] = useState([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
   ]);
 

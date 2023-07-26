@@ -27,9 +27,10 @@ export const menucompoSlice = createSlice({
               meal2Complete: payload[0],
               meal2: payload[0].title,
             };
-          } else {
-            "pb ni meal1, ni meal2 : " + payload[2];
           }
+          // } else {
+          //   "pb ni meal1, ni meal2 : " + payload[2];
+          // }
         } else {
           return compo;
         }
@@ -58,7 +59,7 @@ export const menucompoSlice = createSlice({
         }
       });
     },
-    resetCompo: (state, {}) => {
+    resetCompo: (state) => {
       state.compoListe = [];
     },
   },

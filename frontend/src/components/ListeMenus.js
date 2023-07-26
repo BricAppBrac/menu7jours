@@ -11,7 +11,6 @@ const ListeMenus = () => {
   const sortSelectedMenus = useSelector(
     (state) => state.sortSelectMenus.sortSelectedMenus
   );
-  const prefSelected = useSelector((state) => state.prefSelect.prefSelected);
 
   // Récupération de la liste de recettes dans la BDD et dispatch dans le store
   useEffect(() => {
@@ -78,7 +77,7 @@ const ListeMenus = () => {
               case "Croissant":
                 return a.prefDayOne.localeCompare(b.prefDayOne);
               default:
-                null;
+                console.log("Cas qui ne devrait pas arriver");
             }
           })
           .map((menu) => <MenusListeCard key={menu._id} menu={menu} />)}
